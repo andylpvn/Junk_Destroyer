@@ -34,6 +34,7 @@ namespace UWPApp
             var process = new Process();
             process.StartInfo.FileName = "powershell.exe";
             process.StartInfo.Arguments = @"C:\\Users\\jacob\\OneDrive\\Desktop\\UWPApp\\apps_getInstalled.ps1";
+            process.StartInfo.CreateNoWindow = true; //not shown
 
             process.Start();
             process.WaitForExit();
@@ -66,6 +67,7 @@ namespace UWPApp
             var process = new Process();
             process.StartInfo.FileName = "powershell.exe";
             process.StartInfo.Arguments = @"C:\\Users\\jacob\\OneDrive\\Desktop\\UWPApp\\installed_full.csv";
+            process.StartInfo.CreateNoWindow = true; //not shown
 
             process.Start();
             process.WaitForExit();
@@ -78,6 +80,7 @@ namespace UWPApp
             var process = new Process();
             process.StartInfo.FileName = "powershell.exe";
             process.StartInfo.Arguments = @"C:\\Users\\jacob\\OneDrive\\Desktop\\UWPApp\\apps-mockUninstall.ps1";
+            process.StartInfo.CreateNoWindow = false; //shown
 
             process.Start();
             process.WaitForExit();

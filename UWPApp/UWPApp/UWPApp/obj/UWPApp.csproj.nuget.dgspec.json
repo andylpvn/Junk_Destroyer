@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jacob\\OneDrive\\Desktop\\UWPApp\\UWPApp\\UWPApp\\UWPApp.csproj": {}
+    "C:\\Users\\jacob\\OneDrive\\Desktop\\GitHub-Repos\\Junk_Destroyer\\UWPApp\\UWPApp\\UWPApp\\UWPApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jacob\\OneDrive\\Desktop\\UWPApp\\UWPApp\\UWPApp\\UWPApp.csproj": {
+    "C:\\Users\\jacob\\OneDrive\\Desktop\\GitHub-Repos\\Junk_Destroyer\\UWPApp\\UWPApp\\UWPApp\\UWPApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jacob\\OneDrive\\Desktop\\UWPApp\\UWPApp\\UWPApp\\UWPApp.csproj",
+        "projectUniqueName": "C:\\Users\\jacob\\OneDrive\\Desktop\\GitHub-Repos\\Junk_Destroyer\\UWPApp\\UWPApp\\UWPApp\\UWPApp.csproj",
         "projectName": "UWPApp",
-        "projectPath": "C:\\Users\\jacob\\OneDrive\\Desktop\\UWPApp\\UWPApp\\UWPApp\\UWPApp.csproj",
+        "projectPath": "C:\\Users\\jacob\\OneDrive\\Desktop\\GitHub-Repos\\Junk_Destroyer\\UWPApp\\UWPApp\\UWPApp\\UWPApp.csproj",
         "packagesPath": "C:\\Users\\jacob\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jacob\\OneDrive\\Desktop\\UWPApp\\UWPApp\\UWPApp\\obj\\",
+        "outputPath": "C:\\Users\\jacob\\OneDrive\\Desktop\\GitHub-Repos\\Junk_Destroyer\\UWPApp\\UWPApp\\UWPApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jacob\\AppData\\Roaming\\NuGet\\NuGet.Config",
