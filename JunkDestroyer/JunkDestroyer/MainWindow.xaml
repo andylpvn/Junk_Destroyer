@@ -1,0 +1,31 @@
+﻿<Window x:Class="JunkDestroyer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JunkDestroyer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="468" Width="800">
+    <Grid Margin="13,0,0.286,0.429">
+        <ListBox HorizontalAlignment="Left" Height="294" Margin="174,37,0,0" VerticalAlignment="Top" Width="588">
+            <ProgressBar Height="18" Width="586"/>
+        </ListBox>
+        <Button Content="Refresh" HorizontalAlignment="Left" Margin="172,375,0,0" VerticalAlignment="Top" Width="92" Height="36" FontSize="16"/>
+        <Button Content="Uninstall selected apps" HorizontalAlignment="Left" Margin="375,374,0,0" VerticalAlignment="Top" Width="180" Height="39" FontSize="16"/>
+        <Button Content="Update list" HorizontalAlignment="Left" Margin="666,371,0,0" VerticalAlignment="Top" Width="90" Height="41" FontSize="16"/>
+        <RadioButton Content="Personal" HorizontalAlignment="Left" Margin="12,161,0,0" VerticalAlignment="Top" Height="23" Width="98" FontSize="16"/>
+        <RadioButton Content="Business" HorizontalAlignment="Left" Margin="12,213,0,0" VerticalAlignment="Top" Height="23" Width="98" FontSize="16"/>
+        <RadioButton Content="Custom" HorizontalAlignment="Left" Margin="13,258,0,0" VerticalAlignment="Top" Height="23" Width="98" FontSize="16"/>
+        <CheckBox Content="Select all" HorizontalAlignment="Left" Margin="171,340,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.107,0.42"/>
+        <RadioButton Content="All applications" HorizontalAlignment="Left" Margin="13,306,0,0" VerticalAlignment="Top" Height="22" Width="140" FontSize="16" RenderTransformOrigin="0.324,0.544"/>
+        <Border BorderBrush="Black" BorderThickness="0.5" HorizontalAlignment="Left" Height="216" Margin="5,124,0,0" VerticalAlignment="Top" Width="144">
+            <TextBox TextWrapping="Wrap" Text="Current user:" Margin="-0.143,-0.143,-0.143,188.857" HorizontalAlignment="Right" Width="142" FontSize="14"/>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="0.5" HorizontalAlignment="Left" Height="63" Margin="5,38,0,0" VerticalAlignment="Top" Width="145">
+            <TextBox TextWrapping="Wrap" Text="Windows user:" FontSize="14" Margin="-0.143,-0.143,0,36.857"/>
+        </Border>
+        <ComboBox HorizontalAlignment="Left" Margin="16,69,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="618,4,0,0" TextWrapping="Wrap" Text="Logged in as:" VerticalAlignment="Top" Width="143"/>
+
+    </Grid>
+</Window>
