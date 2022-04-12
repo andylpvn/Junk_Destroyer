@@ -1,0 +1,16 @@
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.AssemblyReference.cache
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.SuggestedBindingRedirects.cache
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\MainWindow.g.cs
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\App.g.cs
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer_MarkupCompile.cache
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer_MarkupCompile.lref
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\JunkDestroyer.exe.config
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\JunkDestroyer.exe
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\JunkDestroyer.pdb
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\MainWindow.baml
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.g.resources
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.Properties.Resources.resources
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.GenerateResource.cache
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.CoreCompileInputs.cache
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.exe
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.pdb
