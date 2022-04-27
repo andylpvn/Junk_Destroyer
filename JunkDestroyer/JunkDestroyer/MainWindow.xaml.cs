@@ -34,7 +34,7 @@ namespace JunkDestroyer
         {
         var process = new Process();
             process.StartInfo.FileName = "powershell.exe";
-            process.StartInfo.Arguments = @"C:\\Users\\jacob\\OneDrive\\Desktop\\UWPApp\\apps_getInstalled.ps1";
+            process.StartInfo.Arguments = @".\apps_getInstalled.ps1";
             process.StartInfo.CreateNoWindow = false; //hide script window
             process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden; //hide script window
 
@@ -52,7 +52,7 @@ namespace JunkDestroyer
             CreateCSVFiles(); 
 
             int count = 0;
-            foreach (string line in System.IO.File.ReadLines(@"C:\\Users\\jacob\\OneDrive\\Desktop\\UWPApp\\installed_names.csv"))
+            foreach (string line in System.IO.File.ReadLines(@"C:\app-lists\installed_names.csv"))
             {
                 count++;
 
