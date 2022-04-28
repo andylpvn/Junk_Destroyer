@@ -64,5 +64,17 @@ namespace JunkDestroyer
             }
         }
 
+        private void CheckBoxChanged(object sender, RoutedEventArgs e)
+        {
+            if (cbSelectAll.IsChecked == true)
+            {
+                lbApps.SelectAll();
+            }
+            else if (cbSelectAll.IsChecked == false)
+            {
+                lbApps.UnselectAll();
+            }
+        }
+
     }
 }
