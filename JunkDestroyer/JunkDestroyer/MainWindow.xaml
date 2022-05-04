@@ -10,9 +10,9 @@
         <ListBox x:Name="lbApps" HorizontalAlignment="Left" Height="294" Margin="174,37,0,0" VerticalAlignment="Top" Width="588" SelectionMode="Multiple">
             <ProgressBar Height="18" Width="586"/>
         </ListBox>
-        <Button Content="Refresh" HorizontalAlignment="Left" Margin="172,375,0,0" VerticalAlignment="Top" Width="92" Height="36" FontSize="16"/>
+        <Button Content="Refresh" HorizontalAlignment="Left" Margin="172,375,0,0" VerticalAlignment="Top" Width="92" Height="36" FontSize="16" Click="UpdateAppList"/>
         <Button Content="Uninstall selected apps" HorizontalAlignment="Left" Margin="375,374,0,0" VerticalAlignment="Top" Width="180" Height="39" FontSize="16"/>
-        <Button Content="Update list" HorizontalAlignment="Left" Margin="666,371,0,0" VerticalAlignment="Top" Width="90" Height="41" FontSize="16" Click="UpdateAppList"/>
+        <Button Content="Update list" HorizontalAlignment="Left" Margin="666,371,0,0" VerticalAlignment="Top" Width="90" Height="41" FontSize="16"/>
         <RadioButton Content="Personal" HorizontalAlignment="Left" Margin="12,161,0,0" VerticalAlignment="Top" Height="23" Width="98" FontSize="16"/>
         <RadioButton Content="Business" HorizontalAlignment="Left" Margin="12,213,0,0" VerticalAlignment="Top" Height="23" Width="98" FontSize="16"/>
         <RadioButton Content="Custom" HorizontalAlignment="Left" Margin="13,258,0,0" VerticalAlignment="Top" Height="23" Width="98" FontSize="16"/>
