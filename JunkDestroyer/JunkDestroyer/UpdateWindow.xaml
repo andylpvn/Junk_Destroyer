@@ -1,0 +1,26 @@
+﻿<Window x:Class="JunkDestroyer.UpdateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JunkDestroyer"
+        mc:Ignorable="d"
+        Title="Database Update" Height="417.415" Width="800">
+    <Grid Margin="13,0,0.286,0.429"
+          >
+        <ListBox x:Name="lbAllApps" HorizontalAlignment="Left" Height="249" Margin="30,74,0,0" VerticalAlignment="Top" Width="300" SelectionMode="Multiple"/>
+        <ListBox x:Name="lbCustomList" HorizontalAlignment="Left" Height="249" Margin="437,73,0,0" VerticalAlignment="Top" Width="300" SelectionMode="Multiple"/>
+        <Button x:Name="btnAdd" Content="Add &gt;&gt;" HorizontalAlignment="Left" Margin="345,181,0,0" VerticalAlignment="Top" Width="75" Click="btnAdd_Click"/>
+        <ComboBox x:Name="cbAppList" HorizontalAlignment="Left" Margin="439,39,0,0" VerticalAlignment="Top" Width="297" SelectedIndex="0">
+            <ComboBoxItem Content="Personal"/>
+            <ComboBoxItem Content="Business"/>
+            <ComboBoxItem Content="Custom"/>
+        </ComboBox>
+        <Label Content="Customize the application list: " HorizontalAlignment="Left" Margin="435,14,0,0" VerticalAlignment="Top" Width="299"/>
+        <Label Content="All installed applications:" HorizontalAlignment="Left" Margin="27,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.204,-0.192" Width="196"/>
+        <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="345,136,0,0" VerticalAlignment="Top" Width="75" Click="btnRefresh_Click"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="663,345,0,0" VerticalAlignment="Top" Width="75" Click="bntSave_Click"/>
+        <Button x:Name="btnRemove" Content="&lt;&lt; Remove" HorizontalAlignment="Left" Margin="345,226,0,0" VerticalAlignment="Top" Width="75" Click="btnRemove_Click"/>
+
+    </Grid>
+</Window>

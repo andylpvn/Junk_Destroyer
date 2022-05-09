@@ -10,16 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.IO;
 
+//for running PS scripts inside .NET
+using System.Management.Automation;
+
+//for JSON
+using Newtonsoft.Json;
+
+
 namespace JunkDestroyer
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -27,54 +31,112 @@ namespace JunkDestroyer
             InitializeComponent();
         }
 
-
-        private void CreateCSVFiles()
-        // This function runs a powershell script which creates two .csv files.
-        // One is for Names, the other for PackageFullNames.
+       
+        //for Refresh button
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-        var process = new Process();
-            process.StartInfo.FileName = "powershell.exe";
-            process.StartInfo.Arguments = @".\apps_getInstalled.ps1";
-            process.StartInfo.CreateNoWindow = false; //hide script window
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden; //hide script window
+            PowerShell ps = PowerShell.Create();
 
-            process.Start();
-            process.WaitForExit();
-            // ...
-        }
+            string param1 = "Get-AppxPackage | Select Name";
+            //string param2 = "";
+            //string param3 = "";
 
-        private void UpdateAppList(object sender, RoutedEventArgs e)
-        // This is called when the user clicks 'Update list'
-        // The function loops through the installed_names.csv file.
-        // First, it calls CreateCSVFiles to get an updated version of the list
-        // Then, it adds an item to the list view for each line in the file. (excluding the header)
-        {
-            CreateCSVFiles(); 
+            //concatenate all the PS scripts
+            ps.AddScript(param1);
+            //ps.AddScript(param2);
+            //...
 
-            int count = 0;
-            foreach (string line in System.IO.File.ReadLines(@"C:\app-lists\installed_names.csv"))
+            //invoke the PS script
+            var result = ps.Invoke();
+
+            //add app list to the listBox
+            foreach (var app in result)
             {
-                count++;
+                lbApps.Items.Add(app);
+            }
 
-                // omit the header
-                if (count != 1 && count != 2)
-                {
-                    lbApps.Items.Add(line);
-                }
+            // serialize JSON to a string and then write string to a file
+            String path = @"c:\appList.json";
+            File.WriteAllText(path, JsonConvert.SerializeObject(result));
+
+            // serialize JSON directly to a file
+            using (StreamWriter file = File.CreateText(path))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, result);
             }
         }
 
+
+        public void populate_appListLV()
+        // This function create a PS script and run the script to output to the listBox
+      
+        {
+            PowerShell ps = PowerShell.Create();
+
+            string param1 = "Get-AppxPackage | Select Name";
+            //string param2 = "";
+            //string param3 = "";
+
+
+            //concatenate all the PS scripts
+            ps.AddScript(param1);
+            //ps.AddScript(param2);
+            //...
+
+            //invoke the PS script
+            var result = ps.Invoke();
+         
+            //add app list to the listBox
+            foreach (var app in result)
+            { 
+                lbApps.Items.Add(app); 
+            }
+        }
+
+
+       //for "Select all""check box 
         private void CheckBoxChanged(object sender, RoutedEventArgs e)
         {
             if (cbSelectAll.IsChecked == true)
             {
                 lbApps.SelectAll();
+                lbApps.Foreground = new SolidColorBrush(Colors.Red);
             }
             else if (cbSelectAll.IsChecked == false)
             {
                 lbApps.UnselectAll();
+                lbApps.Foreground = new SolidColorBrush(Colors.Black);
             }
         }
+
+        //for Uninstall Button
+        private void UninstallBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            //mockup function to test the uninstall button
+            if (lbApps.SelectedItems.Count != 0)
+            {
+                while (lbApps.SelectedIndex != -1)
+                {
+                    lbApps.Items.RemoveAt(lbApps.SelectedIndex);
+                }
+            }
+        }
+
+        //for Update button - open a new window
+        private void UpdateAppList(object sender, RoutedEventArgs e)
+
+        {
+            UpdateWindow updateWindow = new UpdateWindow();
+            updateWindow.Show();
+        }
+
+        //for radio button
+        
+
+
+
 
     }
 }
