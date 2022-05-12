@@ -25,6 +25,9 @@ using Newtonsoft.Json;
 using System.Data;
 using System.Web.Script.Serialization;
 
+using System.DirectoryServices;
+using System.Collections;
+
 namespace JunkDestroyer
 {
 
@@ -32,6 +35,21 @@ namespace JunkDestroyer
 
     public partial class MainWindow : Window
     {
+
+        public class Findings
+        {
+            [JsonProperty("Name")]
+            public string Name { get; set; }
+
+        }
+
+        public class FindingsList
+        {
+            [JsonProperty("Findings")]
+            public IList<Findings> Findings { get; set; }
+        }
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -69,33 +87,53 @@ namespace JunkDestroyer
                 //add names to the ListBox                
                 lbApps.Items.Add(final);
             }
-
-
         }
 
         //find all windows users in the computer
         private void findWindowsUser()
         {
             comboBoxWindowsUser.Items.Clear();
+            comboBoxWindowsAdmin.Items.Clear();
 
-            SelectQuery query = new SelectQuery("Win32_UserAccount");
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
-            foreach (ManagementObject user in searcher.Get())
+            DirectoryEntry localMachine = new DirectoryEntry("WinNT://" + Environment.MachineName); //can use a specific machineName to login to that computer
+
+            //getting all account in Admins group
+            DirectoryEntry admGroup = localMachine.Children.Find("administrators", "group");
+            object adms = admGroup.Invoke("members", null);
+            foreach (object groupMember in (IEnumerable)adms)
             {
-                //get a specific last part of windows user string
-                String s = user.ToString();
-                var last = s.Split('=').Last();
-
-                //add user into the combobox
-                comboBoxWindowsUser.Items.Add(last.ToString());
-                comboBoxWindowsUser.SelectedIndex = 0;
+                DirectoryEntry adm = new DirectoryEntry(groupMember);
+                comboBoxWindowsAdmin.Items.Add(adm.Name);
             }
+            //getting all account in Users group
+            DirectoryEntry userGroup = localMachine.Children.Find("users", "group");
+            object users = userGroup.Invoke("members", null);
+            foreach (object groupMember in (IEnumerable)users)
+            {
+                DirectoryEntry user = new DirectoryEntry(groupMember);
+                comboBoxWindowsUser.Items.Add(user.Name);
+            }
+
+            ////another way to find users
+            //SelectQuery query = new SelectQuery("Win32_UserAccount");
+            //ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
+            //foreach (ManagementObject user in searcher.Get())
+            //{
+            //    //get a specific last part of windows user string
+            //    String s = user.ToString();
+            //    var last = s.Split('=').Last();
+
+            //    //add user into the combobox
+            //    comboBoxWindowsUser.Items.Add(last.ToString());
+            //    comboBoxWindowsUser.SelectedIndex = 0;
+            //}
+
         }
 
-        //for Refresh button
+        //Refresh button
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            //check all radio button
+            //check the "All Applications" radio button
             rdAll.IsChecked = true;
 
             //uncheck the "check all" checkbox
@@ -107,7 +145,7 @@ namespace JunkDestroyer
 
         }
 
-        //for "Select all""check box 
+        // "Select all" check box 
         private void CheckBoxChanged(object sender, RoutedEventArgs e)
         {
             if (cbSelectAll.IsChecked == true)
@@ -122,7 +160,7 @@ namespace JunkDestroyer
             }
         }
 
-        //for Uninstall Button
+        // Uninstall Button
         private void UninstallBtn_Click(object sender, RoutedEventArgs e)
         {
 
@@ -136,7 +174,7 @@ namespace JunkDestroyer
             }
         }
 
-        //for Update button - open a new window
+        // Update button - open a new window
         private void UpdateAppList(object sender, RoutedEventArgs e)
 
         {
@@ -144,45 +182,75 @@ namespace JunkDestroyer
             updateWindow.Show();
         }
 
+        //show currently logged in windows user
         private void txtBoxLogin_TextChanged(object sender, TextChangedEventArgs e)
         {
             string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-
             txtBoxLogin.Text = userName.ToString();
-            // comboBoxWindowsUser.Text = userName.ToString();
-
-
         }
 
+        //for the 3 radio buttons
         private void rdPersonal_Checked(object sender, RoutedEventArgs e)
         {
+            if (File.Exists(@"C:\Temp\Personal.json"))
+            {
+                lbApps.Items.Clear();
+                var path = $@"C:\Temp\Personal.json";
+                var json = File.ReadAllText(path);
 
-            lbApps.Items.Clear();
-            var path = $@"C:\Temp\Personal.json";
+                lbApps.Items.Add(json);
 
-            var json = File.ReadAllText(path);
 
-            lbApps.Items.Add(json);
 
+                //lbApps.ItemsSource = json;
+                //lbApps.DisplayMemberPath = "Name";
+
+
+
+            }
+            else
+            {
+                MessageBox.Show("You have to creat a new Personal list first");
+                lbApps.Items.Clear();
+            }
         }
 
         private void rdBusiness_Checked(object sender, RoutedEventArgs e)
         {
-            lbApps.Items.Clear();
-            var path = $@"C:\Temp\Business.json";
-            var json = File.ReadAllText(path);
-            lbApps.Items.Add(json);
+            if (File.Exists(@"C:\Temp\Business.json"))
+            {
+                lbApps.Items.Clear();
+                var path = $@"C:\Temp\Business.json";
+                var json = File.ReadAllText(path);
 
+                //var json = JsonConvert.DeserializeObject(File.ReadAllText(path));
+                lbApps.Items.Add(json);
 
+                // lbApps.ItemsSource = json;
+                //lbApps.DisplayMemberPath = "Name";
+
+            }
+            else
+            {
+                MessageBox.Show("You have to create a new Business list first");
+                lbApps.Items.Clear();
+            }
         }
 
         private void rdCustom_Checked(object sender, RoutedEventArgs e)
         {
-
-            lbApps.Items.Clear();
-            var path = $@"C:\Temp\Custom.json";
-            var json = File.ReadAllText(path);
-            lbApps.Items.Add(json);
+            if (File.Exists(@"C:\Temp\Custom.json"))
+            {
+                lbApps.Items.Clear();
+                var path = $@"C:\Temp\Custom.json";
+                var json = File.ReadAllText(path);
+                lbApps.Items.Add(json);
+            }
+            else
+            {
+                MessageBox.Show("You have to create a new Custom list first");
+                lbApps.Items.Clear();
+            }
         }
 
         private void rdAll_Checked(object sender, RoutedEventArgs e)
