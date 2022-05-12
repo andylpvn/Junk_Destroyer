@@ -18,6 +18,9 @@ using System.Windows.Shapes;
 
 using System.Web.Script.Serialization;
 
+//using System.Text.Json;
+
+
 namespace JunkDestroyer
 {
     /// <summary>
@@ -35,6 +38,7 @@ namespace JunkDestroyer
         //Refresh button
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
+            lbAllApps.Items.Clear();
             populateApp();
         }
 
@@ -94,11 +98,6 @@ namespace JunkDestroyer
             populateApp();
 
 
-
-
-
-
-
             //check if Temp folder already existed or not
             if (!Directory.Exists(@"C:\Temp"))
             {
@@ -117,6 +116,7 @@ namespace JunkDestroyer
             string writeJson = jss.Serialize(lbCustomList.Items);
             // Write this string to file
             File.WriteAllText(path, writeJson);
+
 
 
             //show a notification to user

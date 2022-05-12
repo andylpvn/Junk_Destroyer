@@ -5,27 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JunkDestroyer"
         mc:Ignorable="d"
-        Title="Junk Destroyer" Height="468" Width="806.988">
-    <Grid Margin="13,0,0.286,0.429">
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="66" Margin="7,36,0,0" VerticalAlignment="Top" Width="149" Opacity="0.3"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="217" Margin="7,112,0,0" VerticalAlignment="Top" Width="149" Opacity="0.3"/>
-        <ListBox x:Name="lbApps" HorizontalAlignment="Left" Height="294" Margin="171,36,0,0" VerticalAlignment="Top" Width="600" SelectionMode="Multiple">
-            <ProgressBar Height="18" Width="586"/>
-        </ListBox>
-        <Button x:Name="RefreshBtn" Content="Refresh" HorizontalAlignment="Left" Margin="172,375,0,0" VerticalAlignment="Top" Width="92" Height="36" FontSize="16" Click="btnRefresh_Click"/>
-        <Button x:Name="UninstallBtn" Content="Uninstall selected apps" HorizontalAlignment="Left" Margin="388,374,0,0" VerticalAlignment="Top" Width="180" Height="39" FontSize="16" Click="UninstallBtn_Click"/>
-        <Button x:Name="UpdateListBtn" Content="Update list" HorizontalAlignment="Left" Margin="679,371,0,0" VerticalAlignment="Top" Width="90" Height="41" FontSize="16" Click="UpdateAppList"/>
-        <RadioButton x:Name="rdPersonal" Content="Personal" HorizontalAlignment="Left" Margin="13,158,0,0" VerticalAlignment="Top" Height="23" Width="98" FontSize="16" Checked="rdPersonal_Checked"/>
-        <RadioButton x:Name="rdBusiness" Content="Business" HorizontalAlignment="Left" Margin="13,201,0,0" VerticalAlignment="Top" Height="23" Width="98" FontSize="16" Checked="rdBusiness_Checked"/>
-        <RadioButton x:Name="rdCustom" Content="Custom" HorizontalAlignment="Left" Margin="13,241,0,0" VerticalAlignment="Top" Height="23" Width="98" FontSize="16" Checked="rdCustom_Checked"/>
-        <CheckBox x:Name="cbSelectAll" Content="Select all" HorizontalAlignment="Left" Margin="171,340,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.107,0.42" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged"/>
-        <RadioButton x:Name="rdAll" Content="All applications" HorizontalAlignment="Left" Margin="14,283,0,0" VerticalAlignment="Top" Height="22" Width="140" FontSize="16" RenderTransformOrigin="0.324,0.544" Checked="rdAll_Checked"/>
-        <ComboBox x:Name="comboBoxWindowsUser" HorizontalAlignment="Left" Margin="16,69,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="0" IsSynchronizedWithCurrentItem="False"  />
-        <TextBox x:Name="txtBoxLogin" HorizontalAlignment="Left" Height="23" Margin="618,4,0,0" TextWrapping="Wrap" Text="            " VerticalAlignment="Top" Width="143" TextChanged="txtBoxLogin_TextChanged"/>
-        <Label Content="Logged in as:" HorizontalAlignment="Left" Margin="535,1,0,0" VerticalAlignment="Top" Width="79"/>
-        <Label Content="Windows User:" HorizontalAlignment="Left" Margin="12,38,0,0" VerticalAlignment="Top" Width="119" FontSize="16"/>
-        <Label Content="Applications List:" HorizontalAlignment="Left" Margin="11,118,0,0" VerticalAlignment="Top" Width="125" FontSize="16"/>
-        <Label x:Name="lbTest" Content="" HorizontalAlignment="Left" Margin="376,1,0,0" VerticalAlignment="Top" Width="108"/>
+        Title="Junk Destroyer" Height="500
+        " Width="810" Background="#FFF2F2F2">
+    <Grid Margin="7,28,6.2,6.4">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="109" Margin="6,-7,0,0" VerticalAlignment="Top" Width="149" Opacity="0.3"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="214" Margin="6,113,0,0" VerticalAlignment="Top" Width="149" Opacity="0.3"/>
+        <ListBox x:Name="lbApps" HorizontalAlignment="Left" Height="335
+                 " Margin="170,-7,0,0" VerticalAlignment="Top" Width="605" SelectionMode="Multiple"/>
+        <Button x:Name="RefreshBtn2" Content="Refresh" HorizontalAlignment="Left" Margin="173,372,0,0" VerticalAlignment="Top" Width="120" Height="50" FontSize="16" Click="btnRefresh_Click" Background="#FFCDCDCD" >
 
+        </Button>
+        <Button x:Name="UninstallBtn" Content="Uninstall selected apps" HorizontalAlignment="Left" Margin="384,374,0,0" VerticalAlignment="Top" Width="180" Height="50" FontSize="16" Click="UninstallBtn_Click" Background="#FFCDCDCD"/>
+        <Button x:Name="UpdateListBtn" Content="Update list" HorizontalAlignment="Left" Margin="655,372,0,0" VerticalAlignment="Top" Width="120" Height="50" FontSize="16" Click="UpdateAppList" Background="#FFCDCDCD"/>
+        <RadioButton x:Name="rdPersonal" Content="Personal" HorizontalAlignment="Left" Margin="12,159,0,0" VerticalAlignment="Top" Height="23" Width="98" FontSize="16" Checked="rdPersonal_Checked"/>
+        <RadioButton x:Name="rdBusiness" Content="Business" HorizontalAlignment="Left" Margin="12,202,0,0" VerticalAlignment="Top" Height="23" Width="98" FontSize="16" Checked="rdBusiness_Checked"/>
+        <RadioButton x:Name="rdCustom" Content="Custom" HorizontalAlignment="Left" Margin="12,242,0,0" VerticalAlignment="Top" Height="23" Width="98" FontSize="16" Checked="rdCustom_Checked"/>
+        <CheckBox x:Name="cbSelectAll" Content="Select all" HorizontalAlignment="Left" Margin="171,340,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.107,0.42" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" Height="16" Width="67"/>
+        <RadioButton x:Name="rdAll" Content="All applications" HorizontalAlignment="Left" Margin="13,284,0,0" VerticalAlignment="Top" Height="22" Width="140" FontSize="16" RenderTransformOrigin="0.324,0.544" Checked="rdAll_Checked"/>
+        <ComboBox x:Name="comboBoxWindowsUser" HorizontalAlignment="Left" Margin="15,70,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="0" IsSynchronizedWithCurrentItem="False" Height="22"  />
+        <TextBox x:Name="txtBoxLogin" HorizontalAlignment="Left" Height="17" Margin="596,-29,0,0" TextWrapping="Wrap" Text="            " VerticalAlignment="Top" Width="143" TextChanged="txtBoxLogin_TextChanged" Background="#FFF2F2F2"/>
+        <Label Content="Logged in as:" HorizontalAlignment="Left" Margin="513,-34,0,0" VerticalAlignment="Top" Width="79" Height="26"/>
+        <Label Content="Administrators:" HorizontalAlignment="Left" Margin="13,-6,0,0" VerticalAlignment="Top" Width="119" FontSize="14" Height="28"/>
+        <Label Content="Applications List:" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top" Width="125" FontSize="14" Height="31"/>
+        <Image HorizontalAlignment="Left" Height="73" Margin="6,341,0,0" VerticalAlignment="Top" Width="149
+               " Source="pmw_logo_icon.png" Stretch="Fill"/>
+        <Label Content="© Developed by 1Click team" HorizontalAlignment="Left" Margin="3,410,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.191,-0.375" FontSize="11" Height="25" Width="149" IsEnabled="False"/>
+        <ComboBox x:Name="comboBoxWindowsAdmin" HorizontalAlignment="Left" Margin="16,22,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="0" IsSynchronizedWithCurrentItem="False" Height="22"  />
+        <Label Content="Users:" HorizontalAlignment="Left" Margin="12,43,0,0" VerticalAlignment="Top" Width="119" FontSize="14" Height="28"/>
     </Grid>
 </Window>
