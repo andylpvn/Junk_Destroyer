@@ -13,42 +13,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.IO;
-
-//for getting local Windows users
-using System.Management;
-
 //for running PS scripts inside .NET
 using System.Management.Automation;
-
 //for JSON
 using Newtonsoft.Json;
 using System.Data;
 using System.Web.Script.Serialization;
-
+//for getting Windows users
 using System.DirectoryServices;
 using System.Collections;
 
+using JunkDestroyer.JSON;
+
 namespace JunkDestroyer
 {
-
-
-
     public partial class MainWindow : Window
     {
+        // List<appNameLists>  { get; set; }
 
-        public class Findings
-        {
-            [JsonProperty("Name")]
-            public string Name { get; set; }
-
-        }
-
-        public class FindingsList
-        {
-            [JsonProperty("Findings")]
-            public IList<Findings> Findings { get; set; }
-        }
-
+        List<string> appNameList = new List<string>();
 
         public MainWindow()
         {
@@ -60,33 +43,26 @@ namespace JunkDestroyer
         {
             lbApps.Items.Clear();
 
-            PowerShell ps = PowerShell.Create();
+            //intergrate PS script
+            var appNames = PowerShell.Create().AddScript("Get-AppxPackage | Select PackageFullname").Invoke();
 
-            string param1 = "Get-AppxPackage | Select Name";
-            //string param2 = "";
-            //string param3 = "";
-
-
-            //concatenate all the PS scripts
-            ps.AddScript(param1);
-            //ps.AddScript(param2);
-            //...
-
-            //invoke the PS script
-            var result = ps.Invoke();
-
-            //add app list to the listBox
-            foreach (var app in result)
+            //get each value in the PS result
+            foreach (var name in appNames)
             {
                 // trim the string to get specific app names
-                String s = app.ToString();
+                String s = name.ToString();
                 int start = s.IndexOf("=") + 1;
                 int end = s.IndexOf("}", start);
                 string final = s.Substring(start, end - start);
 
                 //add names to the ListBox                
                 lbApps.Items.Add(final);
+
             }
+
+
+
+
         }
 
         //find all windows users in the computer
@@ -139,9 +115,14 @@ namespace JunkDestroyer
             //uncheck the "check all" checkbox
             cbSelectAll.IsChecked = false;
 
+            //clear Notification
+            lbNotifications.Items.Clear();
+
             //call methods
             populateApp();
             findWindowsUser();
+
+
 
         }
 
@@ -163,15 +144,28 @@ namespace JunkDestroyer
         // Uninstall Button
         private void UninstallBtn_Click(object sender, RoutedEventArgs e)
         {
+            //clear ArrayString ItemsSource
+            lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
 
-            //mockup function to test the uninstall button
-            if (lbApps.SelectedItems.Count != 0)
+            //List<string> List = new List<string>();
+
+            //String stringName = Convert.ToString(lbApps.SelectedItem);
+
+
+            // var result = PowerShell.Create().AddScript($"Remove-AppxPackage {stringName}").Invoke();
+            foreach (var item in lbApps.SelectedItems)
             {
-                while (lbApps.SelectedIndex != -1)
-                {
-                    lbApps.Items.RemoveAt(lbApps.SelectedIndex);
-                }
+                String s = item.ToString();
+                PowerShell.Create().AddScript($"Remove-AppxPackage {s}").Invoke();
+                String notification = $"{s} > > > has been processed";
+                //List.Add(notification);
+                lbNotifications.Items.Add(notification);
             }
+
+            //lbTest.ItemsSource = List;
+
+            //MessageBox.Show($"You have sucessfully uninstall the {stringName}");
+
         }
 
         // Update button - open a new window
@@ -189,45 +183,47 @@ namespace JunkDestroyer
             txtBoxLogin.Text = userName.ToString();
         }
 
+
+
         //for the 3 radio buttons
         private void rdPersonal_Checked(object sender, RoutedEventArgs e)
         {
             if (File.Exists(@"C:\Temp\Personal.json"))
             {
+                //clear ArrayString ItemsSource
+                lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
+                //clear Listbox
                 lbApps.Items.Clear();
+
                 var path = $@"C:\Temp\Personal.json";
-                var json = File.ReadAllText(path);
-
-                lbApps.Items.Add(json);
-
-
-
-                //lbApps.ItemsSource = json;
-                //lbApps.DisplayMemberPath = "Name";
-
-
+                string json = File.ReadAllText(path);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
+                lbApps.ItemsSource = appList;
 
             }
             else
             {
-                MessageBox.Show("You have to creat a new Personal list first");
+                MessageBox.Show("You have to create a new Personal list first");
                 lbApps.Items.Clear();
             }
+
+
         }
 
         private void rdBusiness_Checked(object sender, RoutedEventArgs e)
         {
             if (File.Exists(@"C:\Temp\Business.json"))
             {
+                //clear ArrayString ItemsSource
+                lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
+                //clear Listbox
                 lbApps.Items.Clear();
+
                 var path = $@"C:\Temp\Business.json";
-                var json = File.ReadAllText(path);
+                string json = File.ReadAllText(path);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
+                lbApps.ItemsSource = appList;
 
-                //var json = JsonConvert.DeserializeObject(File.ReadAllText(path));
-                lbApps.Items.Add(json);
-
-                // lbApps.ItemsSource = json;
-                //lbApps.DisplayMemberPath = "Name";
 
             }
             else
@@ -241,10 +237,15 @@ namespace JunkDestroyer
         {
             if (File.Exists(@"C:\Temp\Custom.json"))
             {
+                //clear ArrayString ItemsSource
+                lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
+                //clear Listbox
                 lbApps.Items.Clear();
+
                 var path = $@"C:\Temp\Custom.json";
-                var json = File.ReadAllText(path);
-                lbApps.Items.Add(json);
+                string json = File.ReadAllText(path);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
+                lbApps.ItemsSource = appList;
             }
             else
             {
@@ -255,6 +256,7 @@ namespace JunkDestroyer
 
         private void rdAll_Checked(object sender, RoutedEventArgs e)
         {
+            lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
             lbApps.Items.Clear();
             populateApp();
 
