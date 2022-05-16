@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 
 using System.Web.Script.Serialization;
 
-//using System.Text.Json;
+using JunkDestroyer.JSON;
 
 
 namespace JunkDestroyer
@@ -28,6 +28,8 @@ namespace JunkDestroyer
     /// </summary>
     public partial class UpdateWindow : Window
     {
+        List<appName> updateList = new List<appName>();
+
         public UpdateWindow()
         {
             InitializeComponent();
@@ -44,23 +46,25 @@ namespace JunkDestroyer
 
         private void populateApp()
         {
-            PowerShell ps = PowerShell.Create();
+            //PowerShell ps = PowerShell.Create();
 
-            string param1 = "Get-AppxPackage | Select Name";
-            //string param2 = "";
-            //string param3 = "";
+            //string param1 = "Get-AppxPackage | Select Name";
+            ////string param2 = "";
+            ////string param3 = "";
 
 
-            //concatenate all the PS scripts
-            ps.AddScript(param1);
-            //ps.AddScript(param2);
-            //...
+            ////concatenate all the PS scripts
+            //ps.AddScript(param1);
+            ////ps.AddScript(param2);
+            ////...
 
-            //invoke the PS script
-            var result = ps.Invoke();
+            ////invoke the PS script
+            //var appUpdates = ps.Invoke();
+
+            var appUpdates = PowerShell.Create().AddScript("Get-AppxPackage | Select PackageFullname").Invoke();
 
             //add app list to the listBox
-            foreach (var app in result)
+            foreach (var app in appUpdates)
             {
                 // trim the string to get specific app names
                 String s = app.ToString();
@@ -97,7 +101,6 @@ namespace JunkDestroyer
         {
             populateApp();
 
-
             //check if Temp folder already existed or not
             if (!Directory.Exists(@"C:\Temp"))
             {
@@ -110,14 +113,24 @@ namespace JunkDestroyer
             //create a file path for the database
             var path = $@"C:\Temp\{dbName}.json";
 
-            // Create a new JavaScriptSerializer to convert our object to and from a json string
-            JavaScriptSerializer jss = new JavaScriptSerializer();
-            // Use the JavaScriptSerializer to convert the ListBox items into a Json string
-            string writeJson = jss.Serialize(lbCustomList.Items);
-            // Write this string to file
-            File.WriteAllText(path, writeJson);
+            //assign all variables in the ListBox to the ArrayList
+            foreach (var item in lbCustomList.Items)
+            {
+
+                appName name = new appName()
+                {
+                    Name = item.ToString() //convert each item in the ListBox to string, and assign to appName class in Applist.cs
+                };
+
+                updateList.Add(name); //add items from the above object to the ArrayList in class Applist.cs
+
+            }
+
+            var appList = JsonConvert.SerializeObject(updateList);
 
 
+            //// Write this string to file
+            File.WriteAllText(path, appList);
 
             //show a notification to user
             MessageBox.Show("You have successfully updated the " + dbName + " database in " + path);
