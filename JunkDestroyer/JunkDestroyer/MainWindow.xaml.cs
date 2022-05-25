@@ -29,7 +29,6 @@ namespace JunkDestroyer
 {
     public partial class MainWindow : Window
     {
-        // List<appNameLists>  { get; set; }
 
         List<string> appNameList = new List<string>();
 
@@ -44,7 +43,7 @@ namespace JunkDestroyer
             lbApps.Items.Clear();
 
             //intergrate PS script
-            var appNames = PowerShell.Create().AddScript("Get-AppxPackage | Select PackageFullname").Invoke();
+            var appNames = PowerShell.Create().AddScript("Get-AppxPackage | Select Name").Invoke();
 
             //get each value in the PS result
             foreach (var name in appNames)
@@ -147,25 +146,14 @@ namespace JunkDestroyer
             //clear ArrayString ItemsSource
             lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
 
-            //List<string> List = new List<string>();
-
-            //String stringName = Convert.ToString(lbApps.SelectedItem);
-
-
-            // var result = PowerShell.Create().AddScript($"Remove-AppxPackage {stringName}").Invoke();
+           //loop all the selected item in the listbox
             foreach (var item in lbApps.SelectedItems)
             {
-                String s = item.ToString();
-                PowerShell.Create().AddScript($"Remove-AppxPackage {s}").Invoke();
-                String notification = $"{s} > > > has been processed";
-                //List.Add(notification);
+                String s = item.ToString(); //convert each item to string
+                PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+                String notification = $"{s} > > > has been processed"; //show notofication each run             
                 lbNotifications.Items.Add(notification);
             }
-
-            //lbTest.ItemsSource = List;
-
-            //MessageBox.Show($"You have sucessfully uninstall the {stringName}");
-
         }
 
         // Update button - open a new window
@@ -182,8 +170,6 @@ namespace JunkDestroyer
             string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
             txtBoxLogin.Text = userName.ToString();
         }
-
-
 
         //for the 3 radio buttons
         private void rdPersonal_Checked(object sender, RoutedEventArgs e)

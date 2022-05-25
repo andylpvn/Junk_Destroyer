@@ -35,6 +35,8 @@ namespace JunkDestroyer
             InitializeComponent();
         }
 
+        //show combobox for each value
+
 
 
         //Refresh button
@@ -61,7 +63,7 @@ namespace JunkDestroyer
             ////invoke the PS script
             //var appUpdates = ps.Invoke();
 
-            var appUpdates = PowerShell.Create().AddScript("Get-AppxPackage | Select PackageFullname").Invoke();
+            var appUpdates = PowerShell.Create().AddScript("Get-AppxPackage | Select Name").Invoke();
 
             //add app list to the listBox
             foreach (var app in appUpdates)
@@ -80,18 +82,22 @@ namespace JunkDestroyer
         //Add button
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            lbCustomList.ClearValue(ItemsControl.ItemsSourceProperty);
+
             if (lbAllApps.SelectedIndex != -1)
             {
                 lbCustomList.Items.Add(lbAllApps.SelectedValue);
-                lbAllApps.Items.Remove(lbAllApps.SelectedValue);
+               lbAllApps.Items.Remove(lbAllApps.SelectedValue);
             }
         }
         //Remove button
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
+            lbCustomList.ClearValue(ItemsControl.ItemsSourceProperty);
+
             if (lbCustomList.SelectedIndex != -1)
             {
-                lbAllApps.Items.Add(lbCustomList.SelectedValue);
+               lbAllApps.Items.Add(lbCustomList.SelectedValue);
                 lbCustomList.Items.Remove(lbCustomList.SelectedValue);
             }
         }
@@ -126,16 +132,52 @@ namespace JunkDestroyer
 
             }
 
+            //Serialize the ArrayList to JSON format and write to JSON file
             var appList = JsonConvert.SerializeObject(updateList);
-
-
-            //// Write this string to file
             File.WriteAllText(path, appList);
 
             //show a notification to user
             MessageBox.Show("You have successfully updated the " + dbName + " database in " + path);
         }
 
+        private void cbAppList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //clear ArrayString ItemsSource
+            lbCustomList.ClearValue(ItemsControl.ItemsSourceProperty);
 
+            //var selected = cbAppList.Text;
+            
+            if (cbAppList.Text == "Personal")
+            {              
+                //clear Listbox
+                lbCustomList.Items.Clear();
+
+                var path = $@"C:\Temp\Personal.json";
+                string json = File.ReadAllText(path);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
+                lbCustomList.ItemsSource = appList;
+            }
+            else if (cbAppList.Text == "Business")
+            {
+                //clear Listbox
+                lbCustomList.Items.Clear();
+
+                var path = $@"C:\Temp\Business.json";
+                string json = File.ReadAllText(path);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
+                lbCustomList.ItemsSource = appList;
+            }
+            else if (cbAppList.Text == "Custom")
+            {
+                //clear Listbox
+                lbCustomList.Items.Clear();
+
+                var path = $@"C:\Temp\Custom.json";
+                string json = File.ReadAllText(path);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
+                lbCustomList.ItemsSource = appList;
+            }
+
+        }
     }
 }

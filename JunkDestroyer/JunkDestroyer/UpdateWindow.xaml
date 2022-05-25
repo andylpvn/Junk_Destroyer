@@ -11,7 +11,7 @@
         <ListBox x:Name="lbAllApps" HorizontalAlignment="Left" Height="249" Margin="30,74,0,0" VerticalAlignment="Top" Width="300" SelectionMode="Multiple"/>
         <ListBox x:Name="lbCustomList" HorizontalAlignment="Left" Height="249" Margin="437,73,0,0" VerticalAlignment="Top" Width="300" SelectionMode="Multiple"/>
         <Button x:Name="btnAdd" Content="Add &gt;&gt;" HorizontalAlignment="Left" Margin="345,181,0,0" VerticalAlignment="Top" Width="75" Click="btnAdd_Click"/>
-        <ComboBox x:Name="cbAppList" HorizontalAlignment="Left" Margin="439,39,0,0" VerticalAlignment="Top" Width="297" SelectedIndex="0">
+        <ComboBox x:Name="cbAppList" HorizontalAlignment="Left" Margin="439,39,0,0" VerticalAlignment="Top" Width="297" SelectedIndex="0" SelectionChanged="cbAppList_SelectionChanged">
             <ComboBoxItem Content="Personal"/>
             <ComboBoxItem Content="Business"/>
             <ComboBoxItem Content="Custom"/>
