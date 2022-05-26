@@ -60,3 +60,11 @@ C:\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.CopyComplete
 \\Mac\Home\Library\CloudStorage\OneDrive-Personal\2. BIS.SaskPolytech\5. SEM 4\COMP-253-Systems Project\2.GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.CopyComplete
 \\Mac\Home\Library\CloudStorage\OneDrive-Personal\2. BIS.SaskPolytech\5. SEM 4\COMP-253-Systems Project\2.GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.exe
 \\Mac\Home\Library\CloudStorage\OneDrive-Personal\2. BIS.SaskPolytech\5. SEM 4\COMP-253-Systems Project\2.GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.pdb
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\System.Management.Automation.dll
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\Microsoft.Management.Infrastructure.dll
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\System.Management.Automation.xml
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\UpdateWindow.g.cs
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\UpdateWindow.baml
+C:\Users\jacob\OneDrive\Desktop\GitHub-Repos\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.CopyComplete
