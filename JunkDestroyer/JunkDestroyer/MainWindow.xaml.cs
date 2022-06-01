@@ -17,12 +17,10 @@ using System.IO;
 using System.Management.Automation;
 //for JSON
 using Newtonsoft.Json;
-using System.Data;
-using System.Web.Script.Serialization;
 //for getting Windows users
 using System.DirectoryServices;
 using System.Collections;
-
+//calling the Applists class
 using JunkDestroyer.JSON;
 
 namespace JunkDestroyer
@@ -30,8 +28,7 @@ namespace JunkDestroyer
     public partial class MainWindow : Window
     {
 
-        List<string> appNameList = new List<string>();
-
+     
         public MainWindow()
         {
             InitializeComponent();
@@ -145,14 +142,16 @@ namespace JunkDestroyer
         {
             //clear ArrayString ItemsSource
             lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
-
-           //loop all the selected item in the listbox
+            lbNotifications.Items.Add("Uninstallation is in progress ...");
+            lbNotifications.Foreground = new SolidColorBrush(Colors.Red);
+            //loop all the selected item in the listbox
             foreach (var item in lbApps.SelectedItems)
             {
                 String s = item.ToString(); //convert each item to string
                 PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
-                String notification = $"{s} > > > has been processed"; //show notofication each run             
+                String notification = $"{s} >>> has been uninstalled"; //show notofication each run             
                 lbNotifications.Items.Add(notification);
+                
             }
         }
 
@@ -190,7 +189,7 @@ namespace JunkDestroyer
             else
             {
                 MessageBox.Show("You have to create a new Personal list first");
-                lbApps.Items.Clear();
+               
             }
 
 
@@ -236,15 +235,29 @@ namespace JunkDestroyer
             else
             {
                 MessageBox.Show("You have to create a new Custom list first");
-                lbApps.Items.Clear();
+               // lbApps.Items.Clear();
             }
         }
 
         private void rdAll_Checked(object sender, RoutedEventArgs e)
         {
-            lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
-            lbApps.Items.Clear();
-            populateApp();
+            if (File.Exists(@"C:\Temp\Master.json"))
+            {
+                //clear ArrayString ItemsSource
+                lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
+                //clear Listbox
+                lbApps.Items.Clear();
+
+                var path = $@"C:\Temp\Master.json";
+                string json = File.ReadAllText(path);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
+                lbApps.ItemsSource = appList;
+            }
+            else
+            {
+                MessageBox.Show("You have to create a new Master list first");
+                // lbApps.Items.Clear();
+            }
 
         }
 
