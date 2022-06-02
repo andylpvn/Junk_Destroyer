@@ -129,7 +129,7 @@ namespace JunkDestroyer {
         #line hidden
         
         
-        #line 31 "..\..\MainWindow.xaml"
+        #line 29 "..\..\MainWindow.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         internal System.Windows.Controls.ComboBox comboBoxWindowsAdmin;
         
@@ -137,9 +137,17 @@ namespace JunkDestroyer {
         #line hidden
         
         
-        #line 33 "..\..\MainWindow.xaml"
+        #line 31 "..\..\MainWindow.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         internal System.Windows.Controls.ListBox lbNotifications;
+        
+        #line default
+        #line hidden
+        
+        
+        #line 32 "..\..\MainWindow.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Image pmwLogo;
         
         #line default
         #line hidden
@@ -272,6 +280,9 @@ namespace JunkDestroyer {
             return;
             case 13:
             this.lbNotifications = ((System.Windows.Controls.ListBox)(target));
+            return;
+            case 14:
+            this.pmwLogo = ((System.Windows.Controls.Image)(target));
             return;
             }
             this._contentLoaded = true;

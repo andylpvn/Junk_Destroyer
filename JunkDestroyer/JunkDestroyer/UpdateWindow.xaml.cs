@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 using System.Web.Script.Serialization;
 
 using JunkDestroyer.JSON;
-
+using System.Collections.ObjectModel;
 
 namespace JunkDestroyer
 {
@@ -82,23 +82,26 @@ namespace JunkDestroyer
         //Add button
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            lbCustomList.ClearValue(ItemsControl.ItemsSourceProperty);
-
+             lbCustomList.ClearValue(ItemsControl.ItemsSourceProperty);
+           // lbCustomList.ItemsSource = null;
+          // String selectedItem = lbAllApps.SelectedValue.ToString();
             if (lbAllApps.SelectedIndex != -1)
             {
-                lbCustomList.Items.Add(lbAllApps.SelectedValue);
+                //lbCustomList.Items.Add(selectedItem);
+               lbCustomList.Items.Add(lbAllApps.SelectedValue);
                lbAllApps.Items.Remove(lbAllApps.SelectedValue);
             }
         }
         //Remove button
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            lbCustomList.ClearValue(ItemsControl.ItemsSourceProperty);
+            //lbCustomList.ItemsSource = null;
+             lbCustomList.ClearValue(ItemsControl.ItemsSourceProperty);
 
             if (lbCustomList.SelectedIndex != -1)
             {
                lbAllApps.Items.Add(lbCustomList.SelectedValue);
-                lbCustomList.Items.Remove(lbCustomList.SelectedValue);
+               lbCustomList.Items.Remove(lbCustomList.SelectedValue);
             }
         }
 
@@ -145,36 +148,38 @@ namespace JunkDestroyer
             //clear ArrayString ItemsSource
             lbCustomList.ClearValue(ItemsControl.ItemsSourceProperty);
 
-            //var selected = cbAppList.Text;
-            
-            if (cbAppList.Text == "Personal")
+            var PersonalPath = $@"C:\Temp\Personal.json";
+            var BusinessPath = $@"C:\Temp\Business.json";
+            var CustomPath = $@"C:\Temp\Custom.json";
+     
+            int index = cbAppList.SelectedIndex;
+                    
+            if (index == 0)
+            {           
+                //clear Listbox
+                lbCustomList.Items.Clear();
+
+                string jsonPersonal = File.ReadAllText(PersonalPath);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(jsonPersonal);
+                lbCustomList.ItemsSource = appList;
+                
+            }
+            else if (index == 1)
+            {             
+                //clear Listbox
+                lbCustomList.Items.Clear();
+
+                string jsonBusiness = File.ReadAllText(BusinessPath);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(jsonBusiness);
+                lbCustomList.ItemsSource = appList;
+            }
+            else if (index == 2)
             {              
                 //clear Listbox
                 lbCustomList.Items.Clear();
 
-                var path = $@"C:\Temp\Personal.json";
-                string json = File.ReadAllText(path);
-                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
-                lbCustomList.ItemsSource = appList;
-            }
-            else if (cbAppList.Text == "Business")
-            {
-                //clear Listbox
-                lbCustomList.Items.Clear();
-
-                var path = $@"C:\Temp\Business.json";
-                string json = File.ReadAllText(path);
-                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
-                lbCustomList.ItemsSource = appList;
-            }
-            else if (cbAppList.Text == "Custom")
-            {
-                //clear Listbox
-                lbCustomList.Items.Clear();
-
-                var path = $@"C:\Temp\Custom.json";
-                string json = File.ReadAllText(path);
-                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
+                string jsonCustom = File.ReadAllText(CustomPath);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(jsonCustom);
                 lbCustomList.ItemsSource = appList;
             }
 
