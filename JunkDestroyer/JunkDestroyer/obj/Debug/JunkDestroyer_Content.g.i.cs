@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pmw_logo_icon.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pmw_logo.png")]
 
 

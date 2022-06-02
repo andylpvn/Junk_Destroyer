@@ -17,10 +17,12 @@ using System.IO;
 using System.Management.Automation;
 //for JSON
 using Newtonsoft.Json;
+using System.Data;
+using System.Web.Script.Serialization;
 //for getting Windows users
 using System.DirectoryServices;
 using System.Collections;
-//calling the Applists class
+
 using JunkDestroyer.JSON;
 
 namespace JunkDestroyer
@@ -28,7 +30,8 @@ namespace JunkDestroyer
     public partial class MainWindow : Window
     {
 
-     
+        List<string> appNameList = new List<string>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -37,6 +40,7 @@ namespace JunkDestroyer
         //show installed apps by powershell scripts
         private void populateApp()
         {
+            lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
             lbApps.Items.Clear();
 
             //intergrate PS script
@@ -106,7 +110,10 @@ namespace JunkDestroyer
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             //check the "All Applications" radio button
-           // rdAll.IsChecked = true;
+            rdAll.IsChecked = false;
+            rdPersonal.IsChecked = false;
+            rdBusiness.IsChecked = false;
+            rdCustom.IsChecked = false;
 
             //uncheck the "check all" checkbox
             cbSelectAll.IsChecked = false;
@@ -128,12 +135,12 @@ namespace JunkDestroyer
             if (cbSelectAll.IsChecked == true)
             {
                 lbApps.SelectAll();
-                lbApps.Foreground = new SolidColorBrush(Colors.Red);
+                lbApps.Foreground = Brushes.Red;
             }
             else if (cbSelectAll.IsChecked == false)
             {
                 lbApps.UnselectAll();
-                lbApps.Foreground = new SolidColorBrush(Colors.Black);
+                lbApps.Foreground = Brushes.Black;
             }
         }
 
@@ -142,16 +149,14 @@ namespace JunkDestroyer
         {
             //clear ArrayString ItemsSource
             lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
-            lbNotifications.Items.Add("Uninstallation is in progress ...");
-            lbNotifications.Foreground = new SolidColorBrush(Colors.Red);
+
             //loop all the selected item in the listbox
             foreach (var item in lbApps.SelectedItems)
             {
                 String s = item.ToString(); //convert each item to string
                 PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
-                String notification = $"{s} >>> has been uninstalled"; //show notofication each run             
+                String notification = $"{s} >>> has been uninstalled"; //show notification each run             
                 lbNotifications.Items.Add(notification);
-                
             }
         }
 
@@ -188,8 +193,9 @@ namespace JunkDestroyer
             }
             else
             {
+                lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
                 MessageBox.Show("You have to create a new Personal list first");
-               
+                lbApps.Items.Clear();
             }
 
 
@@ -213,8 +219,9 @@ namespace JunkDestroyer
             }
             else
             {
+                lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
                 MessageBox.Show("You have to create a new Business list first");
-              //lbApps.Items.Clear();
+                lbApps.Items.Clear();
             }
         }
 
@@ -234,8 +241,9 @@ namespace JunkDestroyer
             }
             else
             {
+                lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
                 MessageBox.Show("You have to create a new Custom list first");
-              //  lbApps.Items.Clear();
+                lbApps.Items.Clear();
             }
         }
 
@@ -255,11 +263,20 @@ namespace JunkDestroyer
             }
             else
             {
+                
                 MessageBox.Show("You have to create a new Master list first");
-              //  lbApps.Items.Clear();
+                lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
+                lbApps.Items.Clear();
+                rdAll.IsChecked = false;
             }
 
         }
+
+
+
+
+
+
 
     }
 }
