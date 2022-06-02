@@ -214,7 +214,7 @@ namespace JunkDestroyer
             else
             {
                 MessageBox.Show("You have to create a new Business list first");
-                lbApps.Items.Clear();
+              //lbApps.Items.Clear();
             }
         }
 
@@ -235,7 +235,7 @@ namespace JunkDestroyer
             else
             {
                 MessageBox.Show("You have to create a new Custom list first");
-                lbApps.Items.Clear();
+              //  lbApps.Items.Clear();
             }
         }
 
@@ -256,7 +256,7 @@ namespace JunkDestroyer
             else
             {
                 MessageBox.Show("You have to create a new Master list first");
-                lbApps.Items.Clear();
+              //  lbApps.Items.Clear();
             }
 
         }
