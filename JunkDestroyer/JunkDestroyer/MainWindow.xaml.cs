@@ -106,7 +106,7 @@ namespace JunkDestroyer
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             //check the "All Applications" radio button
-            rdAll.IsChecked = true;
+           // rdAll.IsChecked = true;
 
             //uncheck the "check all" checkbox
             cbSelectAll.IsChecked = false;
@@ -235,7 +235,7 @@ namespace JunkDestroyer
             else
             {
                 MessageBox.Show("You have to create a new Custom list first");
-               // lbApps.Items.Clear();
+                lbApps.Items.Clear();
             }
         }
 
@@ -256,7 +256,7 @@ namespace JunkDestroyer
             else
             {
                 MessageBox.Show("You have to create a new Master list first");
-                // lbApps.Items.Clear();
+                lbApps.Items.Clear();
             }
 
         }
