@@ -27,6 +27,7 @@ using JunkDestroyer.JSON;
 
 namespace JunkDestroyer
 {
+
     public partial class MainWindow : Window
     {
 
@@ -59,10 +60,6 @@ namespace JunkDestroyer
                 lbApps.Items.Add(final);
 
             }
-
-
-
-
         }
 
         //find all windows users in the computer
@@ -121,6 +118,9 @@ namespace JunkDestroyer
             //clear Notification
             lbNotifications.Items.Clear();
 
+            //reset the progress bar
+            pBar.Value = pBar.Minimum;
+
             //call methods
             populateApp();
             findWindowsUser();
@@ -148,16 +148,35 @@ namespace JunkDestroyer
         private void UninstallBtn_Click(object sender, RoutedEventArgs e)
         {
             //clear ArrayString ItemsSource
-            lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
+            //lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
+            MessageBox.Show("Uninstaling is in progress. Click OK to continue");
 
+<<<<<<< Updated upstream
+=======
+           
+
+>>>>>>> Stashed changes
             //loop all the selected item in the listbox
             foreach (var item in lbApps.SelectedItems)
             {
                 String s = item.ToString(); //convert each item to string
+<<<<<<< Updated upstream
                 PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
                 String notification = $"{s} >>> has been uninstalled"; //show notification each run             
                 lbNotifications.Items.Add(notification);
+=======
+              PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+                String notification = $"{s} >>> has been uninstalled"; //show notification each run             
+                lbNotifications.Items.Add(notification);               
+                lbNotifications.Foreground = Brushes.Red;
+>>>>>>> Stashed changes
             }
+
+          
+           // pBar.IsIndeterminate = false;
+            pBar.Value = pBar.Maximum;
+
+
         }
 
         // Update button - open a new window
@@ -178,6 +197,12 @@ namespace JunkDestroyer
         //for the 3 radio buttons
         private void rdPersonal_Checked(object sender, RoutedEventArgs e)
         {
+            //reset the progress bar
+            pBar.Value = pBar.Minimum;
+            //clear notification Listbox
+            lbNotifications.Items.Clear();
+
+
             if (File.Exists(@"C:\Temp\Personal.json"))
             {
                 //clear ArrayString ItemsSource
@@ -203,6 +228,11 @@ namespace JunkDestroyer
 
         private void rdBusiness_Checked(object sender, RoutedEventArgs e)
         {
+            //reset the progress bar
+            pBar.Value = pBar.Minimum;
+            //clear notification Listbox
+            lbNotifications.Items.Clear();
+
             if (File.Exists(@"C:\Temp\Business.json"))
             {
                 //clear ArrayString ItemsSource
@@ -227,6 +257,11 @@ namespace JunkDestroyer
 
         private void rdCustom_Checked(object sender, RoutedEventArgs e)
         {
+            //reset the progress bar
+            pBar.Value = pBar.Minimum;
+            //clear notification Listbox
+            lbNotifications.Items.Clear();
+
             if (File.Exists(@"C:\Temp\Custom.json"))
             {
                 //clear ArrayString ItemsSource
@@ -249,6 +284,11 @@ namespace JunkDestroyer
 
         private void rdAll_Checked(object sender, RoutedEventArgs e)
         {
+            //reset the progress bar
+            pBar.Value = pBar.Minimum;
+            //clear notification Listbox
+            lbNotifications.Items.Clear();
+
             if (File.Exists(@"C:\Temp\Master.json"))
             {
                 //clear ArrayString ItemsSource
@@ -272,11 +312,6 @@ namespace JunkDestroyer
 
         }
 
-
-
-
-
-
-
+       
     }
 }
