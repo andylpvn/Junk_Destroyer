@@ -127,5 +127,8 @@
   <ItemGroup>
     <Resource Include="pmw_logo_icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pmw_logo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
