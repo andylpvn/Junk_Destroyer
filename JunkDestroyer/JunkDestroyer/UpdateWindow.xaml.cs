@@ -161,8 +161,12 @@ namespace JunkDestroyer
 
                 string jsonPersonal = File.ReadAllText(PersonalPath);
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(jsonPersonal);
-                lbCustomList.ItemsSource = appList;
-                
+               
+                foreach (var name in appList)
+                {
+                    lbCustomList.Items.Add(name);
+                }
+
             }
             else if (index == 1)
             {             
@@ -171,7 +175,10 @@ namespace JunkDestroyer
 
                 string jsonBusiness = File.ReadAllText(BusinessPath);
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(jsonBusiness);
-                lbCustomList.ItemsSource = appList;
+                foreach (var name in appList)
+                {
+                    lbCustomList.Items.Add(name);
+                }
             }
             else if (index == 2)
             {              
@@ -180,7 +187,10 @@ namespace JunkDestroyer
 
                 string jsonCustom = File.ReadAllText(CustomPath);
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(jsonCustom);
-                lbCustomList.ItemsSource = appList;
+                foreach (var name in appList)
+                {
+                    lbCustomList.Items.Add(name);
+                }
             }
 
         }

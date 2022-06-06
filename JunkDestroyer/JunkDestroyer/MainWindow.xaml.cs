@@ -43,6 +43,9 @@ namespace JunkDestroyer
             lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
             lbApps.Items.Clear();
 
+            //lbApps.Items.Add($"{"Appication Name",0} {"Full Version Name",100} ");
+            //lbApps.Items.Add("=====================================================================");
+
             //intergrate PS script
             var appNames = PowerShell.Create().AddScript("Get-AppxPackage | Select Name").Invoke();
 
@@ -55,7 +58,10 @@ namespace JunkDestroyer
                 int end = s.IndexOf("}", start);
                 string final = s.Substring(start, end - start);
 
-                //add names to the ListBox                
+                //add names to the ListBox  
+
+               // string outputRow = $"{final,0} {name,100} ";
+
                 lbApps.Items.Add(final);
 
             }
@@ -147,17 +153,26 @@ namespace JunkDestroyer
         // Uninstall Button
         private void UninstallBtn_Click(object sender, RoutedEventArgs e)
         {
-            //clear ArrayString ItemsSource
-            lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
+            //clear notification listbox
+            lbNotifications.Items.Clear();
+            //reset progress bar
+            pBar.Value = pBar.Minimum;
+
+            MessageBox.Show("Uninstall is in progress. Click OK to continue");
 
             //loop all the selected item in the listbox
+            //foreach (var item in lbApps.SelectedItems)
             foreach (var item in lbApps.SelectedItems)
             {
                 String s = item.ToString(); //convert each item to string
                 PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
                 String notification = $"{s} >>> has been uninstalled"; //show notification each run             
                 lbNotifications.Items.Add(notification);
+                lbNotifications.Foreground = Brushes.Red;
+
             }
+
+            pBar.Value = pBar.Maximum;
         }
 
         // Update button - open a new window
@@ -178,6 +193,11 @@ namespace JunkDestroyer
         //for the 3 radio buttons
         private void rdPersonal_Checked(object sender, RoutedEventArgs e)
         {
+            //clear notification listbox
+            lbNotifications.Items.Clear();
+            //reset progress bar
+            pBar.Value = pBar.Minimum;
+
             if (File.Exists(@"C:\Temp\Personal.json"))
             {
                 //clear ArrayString ItemsSource
@@ -187,15 +207,19 @@ namespace JunkDestroyer
 
                 var path = $@"C:\Temp\Personal.json";
                 string json = File.ReadAllText(path);
-                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
-                lbApps.ItemsSource = appList;
+                //List<commonAppName> commmonAppList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);               
+                foreach (var name in appList)
+                {
+                    lbApps.Items.Add(name);
+                }
 
             }
             else
             {
-                lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
+                //lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
                 MessageBox.Show("You have to create a new Personal list first");
-                lbApps.Items.Clear();
+                rdPersonal.IsChecked = false;
             }
 
 
@@ -203,6 +227,11 @@ namespace JunkDestroyer
 
         private void rdBusiness_Checked(object sender, RoutedEventArgs e)
         {
+            //clear notification listbox
+            lbNotifications.Items.Clear();
+            //reset progress bar
+            pBar.Value = pBar.Minimum;
+
             if (File.Exists(@"C:\Temp\Business.json"))
             {
                 //clear ArrayString ItemsSource
@@ -212,21 +241,28 @@ namespace JunkDestroyer
 
                 var path = $@"C:\Temp\Business.json";
                 string json = File.ReadAllText(path);
+               // List<commonAppName> appList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
-                lbApps.ItemsSource = appList;
-
-
+                foreach (var name in appList)
+                {
+                    lbApps.Items.Add(name);
+                }
             }
             else
             {
-                lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
+                //lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
                 MessageBox.Show("You have to create a new Business list first");
-                lbApps.Items.Clear();
+                rdBusiness.IsChecked = false;
             }
         }
 
         private void rdCustom_Checked(object sender, RoutedEventArgs e)
         {
+            //clear notification listbox
+            lbNotifications.Items.Clear();
+            //reset progress bar
+            pBar.Value = pBar.Minimum;
+
             if (File.Exists(@"C:\Temp\Custom.json"))
             {
                 //clear ArrayString ItemsSource
@@ -237,18 +273,26 @@ namespace JunkDestroyer
                 var path = $@"C:\Temp\Custom.json";
                 string json = File.ReadAllText(path);
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
-                lbApps.ItemsSource = appList;
+                foreach (var name in appList)
+                {
+                    lbApps.Items.Add(name);
+                }
             }
             else
             {
-                lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
+                //lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
                 MessageBox.Show("You have to create a new Custom list first");
-                lbApps.Items.Clear();
+                rdCustom.IsChecked = false;
             }
         }
 
         private void rdAll_Checked(object sender, RoutedEventArgs e)
         {
+            //clear notification listbox
+            lbNotifications.Items.Clear();
+            //reset progress bar
+            pBar.Value = pBar.Minimum;
+
             if (File.Exists(@"C:\Temp\Master.json"))
             {
                 //clear ArrayString ItemsSource
@@ -259,14 +303,15 @@ namespace JunkDestroyer
                 var path = $@"C:\Temp\Master.json";
                 string json = File.ReadAllText(path);
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
-                lbApps.ItemsSource = appList;
+                foreach (var name in appList)
+                {
+                    lbApps.Items.Add(name);
+                }
             }
             else
             {
-                
-                MessageBox.Show("You have to create a new Master list first");
-                lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
-                lbApps.Items.Clear();
+                //lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
+                MessageBox.Show("You have to create a new Master list first");               
                 rdAll.IsChecked = false;
             }
 
