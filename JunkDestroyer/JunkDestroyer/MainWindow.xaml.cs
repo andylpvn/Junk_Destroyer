@@ -153,23 +153,26 @@ namespace JunkDestroyer
         // Uninstall Button
         private void UninstallBtn_Click(object sender, RoutedEventArgs e)
         {
+            //clear notification listbox
+            lbNotifications.Items.Clear();
+            //reset progress bar
+            pBar.Value = pBar.Minimum;
 
-            //clear ArrayString ItemsSource
-            lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
-
-            
+            MessageBox.Show("Uninstall is in progress. Click OK to continue");
 
             //loop all the selected item in the listbox
             //foreach (var item in lbApps.SelectedItems)
             foreach (var item in lbApps.SelectedItems)
             {
                 String s = item.ToString(); //convert each item to string
-             // PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+                PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
                 String notification = $"{s} >>> has been uninstalled"; //show notification each run             
                 lbNotifications.Items.Add(notification);
+                lbNotifications.Foreground = Brushes.Red;
 
-                lbNotifications.Items.Add(item);
             }
+
+            pBar.Value = pBar.Maximum;
         }
 
         // Update button - open a new window
@@ -190,6 +193,11 @@ namespace JunkDestroyer
         //for the 3 radio buttons
         private void rdPersonal_Checked(object sender, RoutedEventArgs e)
         {
+            //clear notification listbox
+            lbNotifications.Items.Clear();
+            //reset progress bar
+            pBar.Value = pBar.Minimum;
+
             if (File.Exists(@"C:\Temp\Personal.json"))
             {
                 //clear ArrayString ItemsSource
@@ -219,6 +227,11 @@ namespace JunkDestroyer
 
         private void rdBusiness_Checked(object sender, RoutedEventArgs e)
         {
+            //clear notification listbox
+            lbNotifications.Items.Clear();
+            //reset progress bar
+            pBar.Value = pBar.Minimum;
+
             if (File.Exists(@"C:\Temp\Business.json"))
             {
                 //clear ArrayString ItemsSource
@@ -245,6 +258,11 @@ namespace JunkDestroyer
 
         private void rdCustom_Checked(object sender, RoutedEventArgs e)
         {
+            //clear notification listbox
+            lbNotifications.Items.Clear();
+            //reset progress bar
+            pBar.Value = pBar.Minimum;
+
             if (File.Exists(@"C:\Temp\Custom.json"))
             {
                 //clear ArrayString ItemsSource
@@ -270,6 +288,11 @@ namespace JunkDestroyer
 
         private void rdAll_Checked(object sender, RoutedEventArgs e)
         {
+            //clear notification listbox
+            lbNotifications.Items.Clear();
+            //reset progress bar
+            pBar.Value = pBar.Minimum;
+
             if (File.Exists(@"C:\Temp\Master.json"))
             {
                 //clear ArrayString ItemsSource

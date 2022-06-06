@@ -10,7 +10,7 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="109" Margin="6,-3,0,0" VerticalAlignment="Top" Width="149" Opacity="0.3"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="214" Margin="6,117,0,0" VerticalAlignment="Top" Width="149" Opacity="0.3"/>
         <ListBox x:Name="lbApps" HorizontalAlignment="Left" Height="213" Margin="170,-3,0,0" VerticalAlignment="Top" Width="606" SelectionMode="Multiple"/>
-        <Button x:Name="RefreshBtn2" Content="Refresh" HorizontalAlignment="Left" Margin="173,378,0,0" VerticalAlignment="Top" Width="120" Height="50" FontSize="16" Click="btnRefresh_Click" Background="#FFCDCDCD" >
+        <Button x:Name="RefreshBtn2" Content="Refresh" HorizontalAlignment="Left" Margin="170,378,0,0" VerticalAlignment="Top" Width="120" Height="50" FontSize="16" Click="btnRefresh_Click" Background="#FFCDCDCD" >
 
         </Button>
         <Button x:Name="UninstallBtn" Content="Uninstall selected apps" HorizontalAlignment="Left" Margin="384,380,0,0" VerticalAlignment="Top" Width="180" Height="50" FontSize="16" Click="UninstallBtn_Click" Background="#FFCDCDCD"/>
@@ -28,7 +28,8 @@
         <Label Content="© Developed by 1Click team" HorizontalAlignment="Left" Margin="3,408,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.191,-0.375" FontSize="11" Height="25" Width="149" IsEnabled="False"/>
         <ComboBox x:Name="comboBoxWindowsAdmin" HorizontalAlignment="Left" Margin="16,26,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="0" IsSynchronizedWithCurrentItem="False" Height="22"  />
         <Label Content="Users:" HorizontalAlignment="Left" Margin="12,47,0,0" VerticalAlignment="Top" Width="119" FontSize="14" Height="28"/>
-        <ListBox x:Name="lbNotifications" HorizontalAlignment="Left" Height="119" Margin="170,244,0,0" VerticalAlignment="Top" Width="606"/>
+        <ListBox x:Name="lbNotifications" HorizontalAlignment="Left" Height="106" Margin="170,257,0,0" VerticalAlignment="Top" Width="606"/>
         <Image x:Name="pmwLogo" HorizontalAlignment="Left" Height="54" Margin="7,357,0,0" VerticalAlignment="Top" Width="147" Source="pmw_logo.png"/>
+        <ProgressBar x:Name="pBar" HorizontalAlignment="Left" Height="13" Margin="170,239,0,0" VerticalAlignment="Top" Width="606"/>
     </Grid>
 </Window>
