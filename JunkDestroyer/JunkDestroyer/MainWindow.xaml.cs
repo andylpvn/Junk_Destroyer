@@ -30,7 +30,7 @@ namespace JunkDestroyer
     public partial class MainWindow : Window
     {
 
-        List<string> appNameList = new List<string>();
+       // List<string> appNameList = new List<string>();
 
         public MainWindow()
         {
@@ -74,8 +74,8 @@ namespace JunkDestroyer
         //find all windows users in the computer
         private void findWindowsUser()
         {
-            comboBoxWindowsUser.Items.Clear();
-            comboBoxWindowsAdmin.Items.Clear();
+            cbWindowsUser.Items.Clear();
+            cbWindowsAdmin.Items.Clear();
 
             DirectoryEntry localMachine = new DirectoryEntry("WinNT://" + Environment.MachineName); //can use a specific machineName to login to that computer
 
@@ -85,7 +85,7 @@ namespace JunkDestroyer
             foreach (object groupMember in (IEnumerable)adms)
             {
                 DirectoryEntry adm = new DirectoryEntry(groupMember);
-                comboBoxWindowsAdmin.Items.Add(adm.Name);
+                cbWindowsAdmin.Items.Add(adm.Name);
             }
             //getting all account in Users group
             DirectoryEntry userGroup = localMachine.Children.Find("users", "group");
@@ -93,7 +93,7 @@ namespace JunkDestroyer
             foreach (object groupMember in (IEnumerable)users)
             {
                 DirectoryEntry user = new DirectoryEntry(groupMember);
-                comboBoxWindowsUser.Items.Add(user.Name);
+                cbWindowsUser.Items.Add(user.Name);
             }
 
             ////another way to find users
@@ -109,7 +109,7 @@ namespace JunkDestroyer
             //    comboBoxWindowsUser.Items.Add(last.ToString());
             //    comboBoxWindowsUser.SelectedIndex = 0;
             //}
-
+            
         }
 
         //Refresh button
@@ -157,22 +157,34 @@ namespace JunkDestroyer
             lbNotifications.Items.Clear();
             //reset progress bar
             pBar.Value = pBar.Minimum;
+            //show notification
+            MessageBox.Show("Uninstall is in progress. Click OK to continue");          
+            //get value from combobox
+            String cbUser = cbWindowsUser.Text;
+            //get current logged in user
+            string winUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+           
 
-            MessageBox.Show("Uninstall is in progress. Click OK to continue");
-
-            //loop all the selected item in the listbox
-            //foreach (var item in lbApps.SelectedItems)
+            //loop all the selected item in the listbox           
             foreach (var item in lbApps.SelectedItems)
             {
                 String s = item.ToString(); //convert each item to string
-                PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
-                String notification = $"{s} >>> has been uninstalled"; //show notification each run             
+                //PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+
+                PowerShell.Create().AddScript($"Get-AppxPackage -user {cbUser} {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+
+                String notification = $"{s} from the user: {cbUser} >>> has been processed"; //show notification each run             
                 lbNotifications.Items.Add(notification);
                 lbNotifications.Foreground = Brushes.Red;
 
+
+                Logger.Log("Windows User: {0} | Application: {1} | Process:{2}", winUser, s , "has been processed");
+              
             }
 
             pBar.Value = pBar.Maximum;
+
+            
         }
 
         // Update button - open a new window
@@ -317,8 +329,16 @@ namespace JunkDestroyer
 
         }
 
-
-
+        public static class Logger
+        {
+            public static void Log(string format, params object[] args)
+            {
+                using (var streamWriter = new StreamWriter("C:\\Temp\\Log.txt", true))
+                {
+                    streamWriter.WriteLine("{0} | {1}", DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss"), string.Format(format, args));
+                }
+            }
+        }
 
 
 

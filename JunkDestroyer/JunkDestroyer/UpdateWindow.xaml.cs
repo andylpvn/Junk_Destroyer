@@ -82,26 +82,36 @@ namespace JunkDestroyer
         //Add button
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-             lbCustomList.ClearValue(ItemsControl.ItemsSourceProperty);
-           // lbCustomList.ItemsSource = null;
-          // String selectedItem = lbAllApps.SelectedValue.ToString();
+            // lbCustomList.ClearValue(ItemsControl.ItemsSourceProperty);
+            // lbCustomList.ItemsSource = null;
+            // String selectedItem = lbAllApps.SelectedValue.ToString();
             if (lbAllApps.SelectedIndex != -1)
             {
-                //lbCustomList.Items.Add(selectedItem);
-               lbCustomList.Items.Add(lbAllApps.SelectedValue);
-               lbAllApps.Items.Remove(lbAllApps.SelectedValue);
+
+                if (lbCustomList.Items.Contains(lbAllApps.SelectedItem.ToString()))
+                {
+                    MessageBox.Show("The item is already on the list. Let's try with another application");
+                }
+                else
+                {
+                    lbCustomList.Items.Add(lbAllApps.SelectedValue);
+                    lbAllApps.Items.Remove(lbAllApps.SelectedValue);
+                }
+
+
+
             }
         }
         //Remove button
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
             //lbCustomList.ItemsSource = null;
-             lbCustomList.ClearValue(ItemsControl.ItemsSourceProperty);
+            lbCustomList.ClearValue(ItemsControl.ItemsSourceProperty);
 
             if (lbCustomList.SelectedIndex != -1)
             {
-               lbAllApps.Items.Add(lbCustomList.SelectedValue);
-               lbCustomList.Items.Remove(lbCustomList.SelectedValue);
+                lbAllApps.Items.Add(lbCustomList.SelectedValue);
+                lbCustomList.Items.Remove(lbCustomList.SelectedValue);
             }
         }
 
@@ -145,31 +155,30 @@ namespace JunkDestroyer
 
         private void cbAppList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //clear ArrayString ItemsSource
-            lbCustomList.ClearValue(ItemsControl.ItemsSourceProperty);
 
             var PersonalPath = $@"C:\Temp\Personal.json";
             var BusinessPath = $@"C:\Temp\Business.json";
             var CustomPath = $@"C:\Temp\Custom.json";
-     
+
             int index = cbAppList.SelectedIndex;
-                    
+
             if (index == 0)
-            {           
+            {
                 //clear Listbox
                 lbCustomList.Items.Clear();
 
                 string jsonPersonal = File.ReadAllText(PersonalPath);
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(jsonPersonal);
-               
+
                 foreach (var name in appList)
                 {
-                    lbCustomList.Items.Add(name);
+                    String n = name.ToString();
+                    lbCustomList.Items.Add(n);
                 }
 
             }
             else if (index == 1)
-            {             
+            {
                 //clear Listbox
                 lbCustomList.Items.Clear();
 
@@ -177,11 +186,12 @@ namespace JunkDestroyer
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(jsonBusiness);
                 foreach (var name in appList)
                 {
-                    lbCustomList.Items.Add(name);
+                    String n = name.ToString();
+                    lbCustomList.Items.Add(n);
                 }
             }
             else if (index == 2)
-            {              
+            {
                 //clear Listbox
                 lbCustomList.Items.Clear();
 
@@ -189,7 +199,8 @@ namespace JunkDestroyer
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(jsonCustom);
                 foreach (var name in appList)
                 {
-                    lbCustomList.Items.Add(name);
+                    String n = name.ToString();
+                    lbCustomList.Items.Add(n);
                 }
             }
 
