@@ -30,7 +30,7 @@ namespace JunkDestroyer
     public partial class MainWindow : Window
     {
 
-        List<string> appNameList = new List<string>();
+       // List<string> appNameList = new List<string>();
 
         public MainWindow()
         {
@@ -109,7 +109,7 @@ namespace JunkDestroyer
             //    comboBoxWindowsUser.Items.Add(last.ToString());
             //    comboBoxWindowsUser.SelectedIndex = 0;
             //}
-
+            
         }
 
         //Refresh button
@@ -161,6 +161,9 @@ namespace JunkDestroyer
             MessageBox.Show("Uninstall is in progress. Click OK to continue");          
             //get value from combobox
             String cbUser = cbWindowsUser.Text;
+            //get current logged in user
+            string winUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+           
 
             //loop all the selected item in the listbox           
             foreach (var item in lbApps.SelectedItems)
@@ -170,13 +173,18 @@ namespace JunkDestroyer
 
                 PowerShell.Create().AddScript($"Get-AppxPackage -user {cbUser} {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
 
-                String notification = $"{s} from the user: {cbUser} >>> has been uninstalled"; //show notification each run             
+                String notification = $"{s} from the user: {cbUser} >>> has been processed"; //show notification each run             
                 lbNotifications.Items.Add(notification);
                 lbNotifications.Foreground = Brushes.Red;
 
+
+                Logger.Log("Windows User: {0} | Application: {1} | Process:{2}", winUser, s , "has been processed");
+              
             }
 
             pBar.Value = pBar.Maximum;
+
+            
         }
 
         // Update button - open a new window
@@ -321,8 +329,16 @@ namespace JunkDestroyer
 
         }
 
-
-
+        public static class Logger
+        {
+            public static void Log(string format, params object[] args)
+            {
+                using (var streamWriter = new StreamWriter("C:\\Temp\\Log.txt", true))
+                {
+                    streamWriter.WriteLine("{0} | {1}", DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss"), string.Format(format, args));
+                }
+            }
+        }
 
 
 
