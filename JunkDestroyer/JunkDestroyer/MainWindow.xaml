@@ -20,13 +20,13 @@
         <RadioButton x:Name="rdCustom" Content="Custom" HorizontalAlignment="Left" Margin="12,246,0,0" VerticalAlignment="Top" Height="23" Width="98" FontSize="16" Checked="rdCustom_Checked"/>
         <CheckBox x:Name="cbSelectAll" Content="Select all" HorizontalAlignment="Left" Margin="169,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.107,0.42" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" Height="16" Width="67"/>
         <RadioButton x:Name="rdAll" Content="All applications" HorizontalAlignment="Left" Margin="13,288,0,0" VerticalAlignment="Top" Height="22" Width="140" FontSize="16" RenderTransformOrigin="0.324,0.544" Checked="rdAll_Checked"/>
-        <ComboBox x:Name="comboBoxWindowsUser" HorizontalAlignment="Left" Margin="15,74,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="0" IsSynchronizedWithCurrentItem="False" Height="22"  />
+        <ComboBox x:Name="cbWindowsUser" HorizontalAlignment="Left" Margin="15,74,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="0" IsSynchronizedWithCurrentItem="False" Height="22"  />
         <TextBox x:Name="txtBoxLogin" HorizontalAlignment="Left" Height="17" Margin="632,-27,0,0" TextWrapping="Wrap" Text="            " VerticalAlignment="Top" Width="143" TextChanged="txtBoxLogin_TextChanged" Background="#FFF2F2F2"/>
         <Label Content="Logged in as:" HorizontalAlignment="Left" Margin="549,-30,0,0" VerticalAlignment="Top" Width="79" Height="26"/>
         <Label Content="Administrators:" HorizontalAlignment="Left" Margin="13,-2,0,0" VerticalAlignment="Top" Width="119" FontSize="14" Height="28"/>
         <Label Content="Applications List:" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="125" FontSize="14" Height="31"/>
         <Label Content="© Developed by 1Click team" HorizontalAlignment="Left" Margin="3,408,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.191,-0.375" FontSize="11" Height="25" Width="149" IsEnabled="False"/>
-        <ComboBox x:Name="comboBoxWindowsAdmin" HorizontalAlignment="Left" Margin="16,26,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="0" IsSynchronizedWithCurrentItem="False" Height="22"  />
+        <ComboBox x:Name="cbWindowsAdmin" HorizontalAlignment="Left" Margin="16,26,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="0" IsSynchronizedWithCurrentItem="False" Height="22"  />
         <Label Content="Users:" HorizontalAlignment="Left" Margin="12,47,0,0" VerticalAlignment="Top" Width="119" FontSize="14" Height="28"/>
         <ListBox x:Name="lbNotifications" HorizontalAlignment="Left" Height="106" Margin="170,257,0,0" VerticalAlignment="Top" Width="606"/>
         <Image x:Name="pmwLogo" HorizontalAlignment="Left" Height="54" Margin="7,357,0,0" VerticalAlignment="Top" Width="147" Source="pmw_logo.png"/>
