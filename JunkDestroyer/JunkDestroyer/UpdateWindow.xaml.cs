@@ -28,7 +28,8 @@ namespace JunkDestroyer
     /// </summary>
     public partial class UpdateWindow : Window
     {
-        List<appName> updateList = new List<appName>();
+        List<appName> updateFullName = new List<appName>();
+        List<commonAppName> updateCommonName = new List<commonAppName>();
 
         public UpdateWindow()
         {
@@ -141,13 +142,15 @@ namespace JunkDestroyer
                     Name = item.ToString() //convert each item in the ListBox to string, and assign to appName class in Applist.cs
                 };
 
-                updateList.Add(name); //add items from the above object to the ArrayList in class Applist.cs
+                updateFullName.Add(name); //add items from the above object to the ArrayList in class Applist.cs
 
             }
 
             //Serialize the ArrayList to JSON format and write to JSON file
-            var appList = JsonConvert.SerializeObject(updateList);
+            var appList = JsonConvert.SerializeObject(updateFullName);
+         
             File.WriteAllText(path, appList);
+
 
             //show a notification to user
             MessageBox.Show("You have successfully updated the " + dbName + " database in " + path);

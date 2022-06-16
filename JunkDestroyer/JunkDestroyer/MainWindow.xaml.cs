@@ -25,6 +25,9 @@ using System.Collections;
 
 using JunkDestroyer.JSON;
 
+using System.Linq;
+using System.ComponentModel;
+
 namespace JunkDestroyer
 {
     public partial class MainWindow : Window
@@ -36,6 +39,12 @@ namespace JunkDestroyer
         {
             InitializeComponent();
         }
+        //show currently logged in windows user
+        private void txtBoxLogin_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            txtBoxLogin.Text = userName.ToString();
+        }
 
         //show installed apps by powershell scripts
         private void populateApp()
@@ -43,8 +52,7 @@ namespace JunkDestroyer
             lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
             lbApps.Items.Clear();
 
-            //lbApps.Items.Add($"{"Appication Name",0} {"Full Version Name",100} ");
-            //lbApps.Items.Add("=====================================================================");
+        
 
             //intergrate PS script
             var appNames = PowerShell.Create().AddScript("Get-AppxPackage | Select Name").Invoke();
@@ -58,59 +66,47 @@ namespace JunkDestroyer
                 int end = s.IndexOf("}", start);
                 string final = s.Substring(start, end - start);
 
-                //add names to the ListBox  
-
-               // string outputRow = $"{final,0} {name,100} ";
-
                 lbApps.Items.Add(final);
+               
+
 
             }
-
-
-
-
+          
         }
 
         //find all windows users in the computer
-        private void findWindowsUser()
-        {
-            cbWindowsUser.Items.Clear();
-            cbWindowsAdmin.Items.Clear();
+        //private void findWindowsUser()
+        //{
+        //    cbWindowsUser.Items.Clear();
+           
 
-            DirectoryEntry localMachine = new DirectoryEntry("WinNT://" + Environment.MachineName); //can use a specific machineName to login to that computer
+        //    DirectoryEntry localMachine = new DirectoryEntry("WinNT://" + Environment.MachineName); //can use a specific machineName to login to that computer
 
-            //getting all account in Admins group
-            DirectoryEntry admGroup = localMachine.Children.Find("administrators", "group");
-            object adms = admGroup.Invoke("members", null);
-            foreach (object groupMember in (IEnumerable)adms)
-            {
-                DirectoryEntry adm = new DirectoryEntry(groupMember);
-                cbWindowsAdmin.Items.Add(adm.Name);
-            }
-            //getting all account in Users group
-            DirectoryEntry userGroup = localMachine.Children.Find("users", "group");
-            object users = userGroup.Invoke("members", null);
-            foreach (object groupMember in (IEnumerable)users)
-            {
-                DirectoryEntry user = new DirectoryEntry(groupMember);
-                cbWindowsUser.Items.Add(user.Name);
-            }
-
-            ////another way to find users
-            //SelectQuery query = new SelectQuery("Win32_UserAccount");
-            //ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
-            //foreach (ManagementObject user in searcher.Get())
-            //{
-            //    //get a specific last part of windows user string
-            //    String s = user.ToString();
-            //    var last = s.Split('=').Last();
-
-            //    //add user into the combobox
-            //    comboBoxWindowsUser.Items.Add(last.ToString());
-            //    comboBoxWindowsUser.SelectedIndex = 0;
-            //}
             
-        }
+        //    //getting all account in Users group
+        //    DirectoryEntry userGroup = localMachine.Children.Find("users", "group");
+        //    object users = userGroup.Invoke("members", null);
+        //    foreach (object groupMember in (IEnumerable)users)
+        //    {
+        //        DirectoryEntry user = new DirectoryEntry(groupMember);
+        //        cbWindowsUser.Items.Add(user.Name);
+        //    }
+
+        //    ////another way to find users
+        //    //SelectQuery query = new SelectQuery("Win32_UserAccount");
+        //    //ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
+        //    //foreach (ManagementObject user in searcher.Get())
+        //    //{
+        //    //    //get a specific last part of windows user string
+        //    //    String s = user.ToString();
+        //    //    var last = s.Split('=').Last();
+
+        //    //    //add user into the combobox
+        //    //    comboBoxWindowsUser.Items.Add(last.ToString());
+        //    //    comboBoxWindowsUser.SelectedIndex = 0;
+        //    //}
+            
+        //}
 
         //Refresh button
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
@@ -129,9 +125,9 @@ namespace JunkDestroyer
 
             //call methods
             populateApp();
-            findWindowsUser();
-
-
+           
+            //sort the listbox 
+            lbApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
 
         }
 
@@ -159,32 +155,50 @@ namespace JunkDestroyer
             pBar.Value = pBar.Minimum;
             //show notification
             MessageBox.Show("Uninstall is in progress. Click OK to continue");          
-            //get value from combobox
-            String cbUser = cbWindowsUser.Text;
+            
             //get current logged in user
             string winUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-           
 
-            //loop all the selected item in the listbox           
-            foreach (var item in lbApps.SelectedItems)
+
+            if (rdCurrentUser.IsChecked == true)
             {
-                String s = item.ToString(); //convert each item to string
-                //PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+                foreach (var item in lbApps.SelectedItems)
+                {
+                    String s = item.ToString(); //convert each item to string
 
-                PowerShell.Create().AddScript($"Get-AppxPackage -user {cbUser} {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+                    string final = s.Split(',').Last();
 
-                String notification = $"{s} from the user: {cbUser} >>> has been processed"; //show notification each run             
-                lbNotifications.Items.Add(notification);
-                lbNotifications.Foreground = Brushes.Red;
+                    // PowerShell.Create().AddScript($"Get-AppxPackage -user {cbUser} {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
 
-
-                Logger.Log("Windows User: {0} | Application: {1} | Process:{2}", winUser, s , "has been processed");
-              
+                    String notification = $"{s} from the user: {winUser} >>> processed"; //show notification each run             
+                    lbNotifications.Items.Add(notification);
+                    lbNotifications.Foreground = Brushes.Red;
+                    //log file
+                    Logger.Log("WinUser: {0} | Application: {1} | Process: {2}", winUser, s, "has been processed"); //add each run to log file 
+                }
             }
 
-            pBar.Value = pBar.Maximum;
+            else if (rdAllUser.IsChecked == true)
+            {
+                
+                foreach (var item in lbApps.SelectedItems)
+                {
+                    String s = item.ToString(); //convert each item to string
 
-            
+                    string final = s.Split(',').Last();
+                    
+                    // PowerShell.Create().AddScript($"Get-AppxPackage -allusers {final} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+
+                    String notification = $"{s} from all the Windows users have been processed"; //show notification each run             
+                    lbNotifications.Items.Add(notification);
+                    lbNotifications.Foreground = Brushes.Red;
+                    //add log file to the log.txt
+                    Logger.Log("WinUser: {0} | Application: {1} | Process: {2}", winUser, s, "has been processed"); //add each run to log file  
+                }
+            }
+
+    
+            pBar.Value = pBar.Maximum;           
         }
 
         // Update button - open a new window
@@ -195,12 +209,7 @@ namespace JunkDestroyer
             updateWindow.Show();
         }
 
-        //show currently logged in windows user
-        private void txtBoxLogin_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            txtBoxLogin.Text = userName.ToString();
-        }
+        
 
         //for the 3 radio buttons
         private void rdPersonal_Checked(object sender, RoutedEventArgs e)
@@ -209,6 +218,7 @@ namespace JunkDestroyer
             lbNotifications.Items.Clear();
             //reset progress bar
             pBar.Value = pBar.Minimum;
+            
 
             if (File.Exists(@"C:\Temp\Personal.json"))
             {
@@ -219,14 +229,25 @@ namespace JunkDestroyer
 
                 var path = $@"C:\Temp\Personal.json";
                 string json = File.ReadAllText(path);
-                //List<commonAppName> commmonAppList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
-                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);               
-                foreach (var name in appList)
+                List<commonAppName> commmonAppList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
+           
+                //combine the two ArrayList together to match commonName with fullAppName
+                foreach (var combineName in commmonAppList.Zip(appList, Tuple.Create))
                 {
-                    lbApps.Items.Add(name);
+                    //trim to get specific combination name
+                    String s = combineName.ToString();
+                    int start = s.IndexOf("(") + 1;
+                    int end = s.IndexOf(")", start);
+                    string final = s.Substring(start, end - start);
+                    //add the specific app name to the list box
+                    lbApps.Items.Add(final);                  
                 }
-
             }
+
+            //sort the listbox
+            
+
             else
             {
                 //lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
@@ -234,6 +255,8 @@ namespace JunkDestroyer
                 rdPersonal.IsChecked = false;
             }
 
+            //sort the listbox 
+            lbApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
 
         }
 
@@ -253,11 +276,19 @@ namespace JunkDestroyer
 
                 var path = $@"C:\Temp\Business.json";
                 string json = File.ReadAllText(path);
-               // List<commonAppName> appList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
+                List < commonAppName > commmonAppList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
-                foreach (var name in appList)
+
+                //combine the two ArrayList together to match commonName with fullAppName
+                foreach (var combineName in commmonAppList.Zip(appList, Tuple.Create))
                 {
-                    lbApps.Items.Add(name);
+                    //trim to get specific combination name
+                    String s = combineName.ToString();
+                    int start = s.IndexOf("(") + 1;
+                    int end = s.IndexOf(")", start);
+                    string final = s.Substring(start, end - start);
+                    //add the specific app name to the list box
+                    lbApps.Items.Add(final);
                 }
             }
             else
@@ -266,6 +297,52 @@ namespace JunkDestroyer
                 MessageBox.Show("You have to create a new Business list first");
                 rdBusiness.IsChecked = false;
             }
+
+            //sort the listbox 
+            lbApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
+        }
+
+       
+
+        private void rdMaster_Checked(object sender, RoutedEventArgs e)
+        {
+            //clear notification listbox
+            lbNotifications.Items.Clear();
+            //reset progress bar
+            pBar.Value = pBar.Minimum;
+
+            if (File.Exists(@"C:\Temp\Master.json"))
+            {
+                //clear ArrayString ItemsSource
+                lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
+                //clear Listbox
+                lbApps.Items.Clear();
+
+                var path = $@"C:\Temp\Master.json";
+                string json = File.ReadAllText(path);
+                List<commonAppName> commmonAppList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
+
+                //combine the two ArrayList together to match commonName with fullAppName
+                foreach (var combineName in commmonAppList.Zip(appList, Tuple.Create))
+                {
+                    //trim to get specific combination name
+                    String s = combineName.ToString();
+                    int start = s.IndexOf("(") + 1;
+                    int end = s.IndexOf(")", start);
+                    string final = s.Substring(start, end - start);
+                    //add the specific app name to the list box
+                    lbApps.Items.Add(final);
+                }
+            }
+            else
+            {
+                //lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
+                MessageBox.Show("You have to create a new Master list first");
+                rdAll.IsChecked = false;
+            }
+            //sort the listbox 
+            lbApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
         }
 
         private void rdCustom_Checked(object sender, RoutedEventArgs e)
@@ -284,10 +361,15 @@ namespace JunkDestroyer
 
                 var path = $@"C:\Temp\Custom.json";
                 string json = File.ReadAllText(path);
+               
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
-                foreach (var name in appList)
+
+                //combine the two ArrayList together to match commonName with fullAppName
+                foreach (var app in appList)
                 {
-                    lbApps.Items.Add(name);
+                    
+                    //add the specific app name to the list box
+                    lbApps.Items.Add(app);
                 }
             }
             else
@@ -298,37 +380,24 @@ namespace JunkDestroyer
             }
         }
 
+
         private void rdAll_Checked(object sender, RoutedEventArgs e)
         {
             //clear notification listbox
             lbNotifications.Items.Clear();
             //reset progress bar
             pBar.Value = pBar.Minimum;
-
-            if (File.Exists(@"C:\Temp\Master.json"))
-            {
-                //clear ArrayString ItemsSource
-                lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
-                //clear Listbox
-                lbApps.Items.Clear();
-
-                var path = $@"C:\Temp\Master.json";
-                string json = File.ReadAllText(path);
-                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
-                foreach (var name in appList)
-                {
-                    lbApps.Items.Add(name);
-                }
-            }
-            else
-            {
-                //lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
-                MessageBox.Show("You have to create a new Master list first");               
-                rdAll.IsChecked = false;
-            }
-
+            //cal the function 
+            populateApp();
+            //sort the listbox 
+            lbApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
         }
 
+
+
+
+
+        //log file class
         public static class Logger
         {
             public static void Log(string format, params object[] args)
@@ -340,8 +409,6 @@ namespace JunkDestroyer
             }
         }
 
-
-
-
+       
     }
 }
