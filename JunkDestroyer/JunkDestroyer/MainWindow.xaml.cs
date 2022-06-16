@@ -39,7 +39,13 @@ namespace JunkDestroyer
         {
             InitializeComponent();
         }
-        
+        //show currently logged in windows user
+        private void txtBoxLogin_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            txtBoxLogin.Text = userName.ToString();
+        }
+
         //show installed apps by powershell scripts
         private void populateApp()
         {
@@ -61,9 +67,7 @@ namespace JunkDestroyer
                 string final = s.Substring(start, end - start);
 
                 lbApps.Items.Add(final);
-                //add names to the ListBox  
-
-                //string outputRow = $"{final,0} {name,100} ";
+               
 
 
             }
@@ -71,45 +75,38 @@ namespace JunkDestroyer
         }
 
         //find all windows users in the computer
-        private void findWindowsUser()
-        {
-            cbWindowsUser.Items.Clear();
-            cbWindowsAdmin.Items.Clear();
+        //private void findWindowsUser()
+        //{
+        //    cbWindowsUser.Items.Clear();
+           
 
-            DirectoryEntry localMachine = new DirectoryEntry("WinNT://" + Environment.MachineName); //can use a specific machineName to login to that computer
+        //    DirectoryEntry localMachine = new DirectoryEntry("WinNT://" + Environment.MachineName); //can use a specific machineName to login to that computer
 
-            //getting all account in Admins group
-            DirectoryEntry admGroup = localMachine.Children.Find("administrators", "group");
-            object adms = admGroup.Invoke("members", null);
-            foreach (object groupMember in (IEnumerable)adms)
-            {
-                DirectoryEntry adm = new DirectoryEntry(groupMember);
-                cbWindowsAdmin.Items.Add(adm.Name);
-            }
-            //getting all account in Users group
-            DirectoryEntry userGroup = localMachine.Children.Find("users", "group");
-            object users = userGroup.Invoke("members", null);
-            foreach (object groupMember in (IEnumerable)users)
-            {
-                DirectoryEntry user = new DirectoryEntry(groupMember);
-                cbWindowsUser.Items.Add(user.Name);
-            }
-
-            ////another way to find users
-            //SelectQuery query = new SelectQuery("Win32_UserAccount");
-            //ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
-            //foreach (ManagementObject user in searcher.Get())
-            //{
-            //    //get a specific last part of windows user string
-            //    String s = user.ToString();
-            //    var last = s.Split('=').Last();
-
-            //    //add user into the combobox
-            //    comboBoxWindowsUser.Items.Add(last.ToString());
-            //    comboBoxWindowsUser.SelectedIndex = 0;
-            //}
             
-        }
+        //    //getting all account in Users group
+        //    DirectoryEntry userGroup = localMachine.Children.Find("users", "group");
+        //    object users = userGroup.Invoke("members", null);
+        //    foreach (object groupMember in (IEnumerable)users)
+        //    {
+        //        DirectoryEntry user = new DirectoryEntry(groupMember);
+        //        cbWindowsUser.Items.Add(user.Name);
+        //    }
+
+        //    ////another way to find users
+        //    //SelectQuery query = new SelectQuery("Win32_UserAccount");
+        //    //ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
+        //    //foreach (ManagementObject user in searcher.Get())
+        //    //{
+        //    //    //get a specific last part of windows user string
+        //    //    String s = user.ToString();
+        //    //    var last = s.Split('=').Last();
+
+        //    //    //add user into the combobox
+        //    //    comboBoxWindowsUser.Items.Add(last.ToString());
+        //    //    comboBoxWindowsUser.SelectedIndex = 0;
+        //    //}
+            
+        //}
 
         //Refresh button
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
@@ -128,9 +125,9 @@ namespace JunkDestroyer
 
             //call methods
             populateApp();
-            findWindowsUser();
-
-            lbApps.Items.SortDescriptions.Add(new SortDescription("Content", ListSortDirection.Ascending));
+           
+            //sort the listbox 
+            lbApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
 
         }
 
@@ -158,31 +155,49 @@ namespace JunkDestroyer
             pBar.Value = pBar.Minimum;
             //show notification
             MessageBox.Show("Uninstall is in progress. Click OK to continue");          
-            //get value from combobox
-            String cbUser = cbWindowsUser.Text;
+            
             //get current logged in user
             string winUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            
 
-            //loop all the selected item in the listbox           
-            foreach (var item in lbApps.SelectedItems)
+
+            if (rdCurrentUser.IsChecked == true)
             {
-                String s = item.ToString(); //convert each item to string
-                                            //PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+                foreach (var item in lbApps.SelectedItems)
+                {
+                    String s = item.ToString(); //convert each item to string
 
-               
-                
+                    string final = s.Split(',').Last();
 
-                string final = s.Split(',').Last();
+                    // PowerShell.Create().AddScript($"Get-AppxPackage -user {cbUser} {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
 
-                // PowerShell.Create().AddScript($"Get-AppxPackage -user {cbUser} {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
-
-                String notification = $"{final} from the user: {cbUser} >>> processed"; //show notification each run             
-                lbNotifications.Items.Add(notification);
-                lbNotifications.Foreground = Brushes.Red;
-                //log file
-                Logger.Log("WinUser: {0} | Application: {1} | Process: {2}", winUser, s , "has been processed"); //add each run to log file 
+                    String notification = $"{s} from the user: {winUser} >>> processed"; //show notification each run             
+                    lbNotifications.Items.Add(notification);
+                    lbNotifications.Foreground = Brushes.Red;
+                    //log file
+                    Logger.Log("WinUser: {0} | Application: {1} | Process: {2}", winUser, s, "has been processed"); //add each run to log file 
+                }
             }
+
+            else if (rdAllUser.IsChecked == true)
+            {
+                
+                foreach (var item in lbApps.SelectedItems)
+                {
+                    String s = item.ToString(); //convert each item to string
+
+                    string final = s.Split(',').Last();
+                    
+                    // PowerShell.Create().AddScript($"Get-AppxPackage -allusers {final} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+
+                    String notification = $"{s} from all the Windows users have been processed"; //show notification each run             
+                    lbNotifications.Items.Add(notification);
+                    lbNotifications.Foreground = Brushes.Red;
+                    //add log file to the log.txt
+                    Logger.Log("WinUser: {0} | Application: {1} | Process: {2}", winUser, s, "has been processed"); //add each run to log file  
+                }
+            }
+
+    
             pBar.Value = pBar.Maximum;           
         }
 
@@ -194,12 +209,7 @@ namespace JunkDestroyer
             updateWindow.Show();
         }
 
-        //show currently logged in windows user
-        private void txtBoxLogin_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            txtBoxLogin.Text = userName.ToString();
-        }
+        
 
         //for the 3 radio buttons
         private void rdPersonal_Checked(object sender, RoutedEventArgs e)
@@ -245,7 +255,8 @@ namespace JunkDestroyer
                 rdPersonal.IsChecked = false;
             }
 
-            lbApps.Items.SortDescriptions.Add(new SortDescription("Content", ListSortDirection.Ascending));
+            //sort the listbox 
+            lbApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
 
         }
 
@@ -287,7 +298,8 @@ namespace JunkDestroyer
                 rdBusiness.IsChecked = false;
             }
 
-            lbApps.Items.SortDescriptions.Add(new SortDescription("Content", ListSortDirection.Ascending));
+            //sort the listbox 
+            lbApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
         }
 
        
@@ -329,6 +341,8 @@ namespace JunkDestroyer
                 MessageBox.Show("You have to create a new Master list first");
                 rdAll.IsChecked = false;
             }
+            //sort the listbox 
+            lbApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
         }
 
         private void rdCustom_Checked(object sender, RoutedEventArgs e)
@@ -375,7 +389,8 @@ namespace JunkDestroyer
             pBar.Value = pBar.Minimum;
             //cal the function 
             populateApp();
-
+            //sort the listbox 
+            lbApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
         }
 
 
@@ -394,6 +409,6 @@ namespace JunkDestroyer
             }
         }
 
-        
+       
     }
 }
