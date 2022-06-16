@@ -25,6 +25,9 @@ using System.Collections;
 
 using JunkDestroyer.JSON;
 
+using System.Linq;
+using System.ComponentModel;
+
 namespace JunkDestroyer
 {
     public partial class MainWindow : Window
@@ -36,15 +39,14 @@ namespace JunkDestroyer
         {
             InitializeComponent();
         }
-
+        
         //show installed apps by powershell scripts
         private void populateApp()
         {
             lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
             lbApps.Items.Clear();
 
-            //lbApps.Items.Add($"{"Appication Name",0} {"Full Version Name",100} ");
-            //lbApps.Items.Add("=====================================================================");
+        
 
             //intergrate PS script
             var appNames = PowerShell.Create().AddScript("Get-AppxPackage | Select Name").Invoke();
@@ -58,17 +60,14 @@ namespace JunkDestroyer
                 int end = s.IndexOf("}", start);
                 string final = s.Substring(start, end - start);
 
+                lbApps.Items.Add(final);
                 //add names to the ListBox  
 
-               // string outputRow = $"{final,0} {name,100} ";
+                //string outputRow = $"{final,0} {name,100} ";
 
-                lbApps.Items.Add(final);
 
             }
-
-
-
-
+          
         }
 
         //find all windows users in the computer
@@ -131,7 +130,7 @@ namespace JunkDestroyer
             populateApp();
             findWindowsUser();
 
-
+            lbApps.Items.SortDescriptions.Add(new SortDescription("Content", ListSortDirection.Ascending));
 
         }
 
@@ -163,28 +162,28 @@ namespace JunkDestroyer
             String cbUser = cbWindowsUser.Text;
             //get current logged in user
             string winUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-           
+            
 
             //loop all the selected item in the listbox           
             foreach (var item in lbApps.SelectedItems)
             {
                 String s = item.ToString(); //convert each item to string
-                //PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+                                            //PowerShell.Create().AddScript($"Get-AppxPackage {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
 
-                PowerShell.Create().AddScript($"Get-AppxPackage -user {cbUser} {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+               
+                
 
-                String notification = $"{s} from the user: {cbUser} >>> has been processed"; //show notification each run             
+                string final = s.Split(',').Last();
+
+                // PowerShell.Create().AddScript($"Get-AppxPackage -user {cbUser} {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+
+                String notification = $"{final} from the user: {cbUser} >>> processed"; //show notification each run             
                 lbNotifications.Items.Add(notification);
                 lbNotifications.Foreground = Brushes.Red;
-
-
-                Logger.Log("Windows User: {0} | Application: {1} | Process:{2}", winUser, s , "has been processed");
-              
+                //log file
+                Logger.Log("WinUser: {0} | Application: {1} | Process: {2}", winUser, s , "has been processed"); //add each run to log file 
             }
-
-            pBar.Value = pBar.Maximum;
-
-            
+            pBar.Value = pBar.Maximum;           
         }
 
         // Update button - open a new window
@@ -209,6 +208,7 @@ namespace JunkDestroyer
             lbNotifications.Items.Clear();
             //reset progress bar
             pBar.Value = pBar.Minimum;
+            
 
             if (File.Exists(@"C:\Temp\Personal.json"))
             {
@@ -219,14 +219,25 @@ namespace JunkDestroyer
 
                 var path = $@"C:\Temp\Personal.json";
                 string json = File.ReadAllText(path);
-                //List<commonAppName> commmonAppList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
-                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);               
-                foreach (var name in appList)
+                List<commonAppName> commmonAppList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
+           
+                //combine the two ArrayList together to match commonName with fullAppName
+                foreach (var combineName in commmonAppList.Zip(appList, Tuple.Create))
                 {
-                    lbApps.Items.Add(name);
+                    //trim to get specific combination name
+                    String s = combineName.ToString();
+                    int start = s.IndexOf("(") + 1;
+                    int end = s.IndexOf(")", start);
+                    string final = s.Substring(start, end - start);
+                    //add the specific app name to the list box
+                    lbApps.Items.Add(final);                  
                 }
-
             }
+
+            //sort the listbox
+            
+
             else
             {
                 //lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
@@ -234,6 +245,7 @@ namespace JunkDestroyer
                 rdPersonal.IsChecked = false;
             }
 
+            lbApps.Items.SortDescriptions.Add(new SortDescription("Content", ListSortDirection.Ascending));
 
         }
 
@@ -253,11 +265,19 @@ namespace JunkDestroyer
 
                 var path = $@"C:\Temp\Business.json";
                 string json = File.ReadAllText(path);
-               // List<commonAppName> appList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
+                List < commonAppName > commmonAppList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
-                foreach (var name in appList)
+
+                //combine the two ArrayList together to match commonName with fullAppName
+                foreach (var combineName in commmonAppList.Zip(appList, Tuple.Create))
                 {
-                    lbApps.Items.Add(name);
+                    //trim to get specific combination name
+                    String s = combineName.ToString();
+                    int start = s.IndexOf("(") + 1;
+                    int end = s.IndexOf(")", start);
+                    string final = s.Substring(start, end - start);
+                    //add the specific app name to the list box
+                    lbApps.Items.Add(final);
                 }
             }
             else
@@ -265,6 +285,49 @@ namespace JunkDestroyer
                 //lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
                 MessageBox.Show("You have to create a new Business list first");
                 rdBusiness.IsChecked = false;
+            }
+
+            lbApps.Items.SortDescriptions.Add(new SortDescription("Content", ListSortDirection.Ascending));
+        }
+
+       
+
+        private void rdMaster_Checked(object sender, RoutedEventArgs e)
+        {
+            //clear notification listbox
+            lbNotifications.Items.Clear();
+            //reset progress bar
+            pBar.Value = pBar.Minimum;
+
+            if (File.Exists(@"C:\Temp\Master.json"))
+            {
+                //clear ArrayString ItemsSource
+                lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
+                //clear Listbox
+                lbApps.Items.Clear();
+
+                var path = $@"C:\Temp\Master.json";
+                string json = File.ReadAllText(path);
+                List<commonAppName> commmonAppList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
+                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
+
+                //combine the two ArrayList together to match commonName with fullAppName
+                foreach (var combineName in commmonAppList.Zip(appList, Tuple.Create))
+                {
+                    //trim to get specific combination name
+                    String s = combineName.ToString();
+                    int start = s.IndexOf("(") + 1;
+                    int end = s.IndexOf(")", start);
+                    string final = s.Substring(start, end - start);
+                    //add the specific app name to the list box
+                    lbApps.Items.Add(final);
+                }
+            }
+            else
+            {
+                //lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
+                MessageBox.Show("You have to create a new Master list first");
+                rdAll.IsChecked = false;
             }
         }
 
@@ -284,10 +347,15 @@ namespace JunkDestroyer
 
                 var path = $@"C:\Temp\Custom.json";
                 string json = File.ReadAllText(path);
+               
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
-                foreach (var name in appList)
+
+                //combine the two ArrayList together to match commonName with fullAppName
+                foreach (var app in appList)
                 {
-                    lbApps.Items.Add(name);
+                    
+                    //add the specific app name to the list box
+                    lbApps.Items.Add(app);
                 }
             }
             else
@@ -298,37 +366,23 @@ namespace JunkDestroyer
             }
         }
 
+
         private void rdAll_Checked(object sender, RoutedEventArgs e)
         {
             //clear notification listbox
             lbNotifications.Items.Clear();
             //reset progress bar
             pBar.Value = pBar.Minimum;
-
-            if (File.Exists(@"C:\Temp\Master.json"))
-            {
-                //clear ArrayString ItemsSource
-                lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
-                //clear Listbox
-                lbApps.Items.Clear();
-
-                var path = $@"C:\Temp\Master.json";
-                string json = File.ReadAllText(path);
-                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
-                foreach (var name in appList)
-                {
-                    lbApps.Items.Add(name);
-                }
-            }
-            else
-            {
-                //lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
-                MessageBox.Show("You have to create a new Master list first");               
-                rdAll.IsChecked = false;
-            }
+            //cal the function 
+            populateApp();
 
         }
 
+
+
+
+
+        //log file class
         public static class Logger
         {
             public static void Log(string format, params object[] args)
@@ -340,8 +394,6 @@ namespace JunkDestroyer
             }
         }
 
-
-
-
+        
     }
 }

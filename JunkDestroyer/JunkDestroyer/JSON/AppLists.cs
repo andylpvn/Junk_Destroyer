@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace JunkDestroyer.JSON
 {
     public class AppLists
@@ -33,7 +35,7 @@ namespace JunkDestroyer.JSON
         }
     }
 
-
+   
 
 
 }
