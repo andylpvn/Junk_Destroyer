@@ -1,18 +1,66 @@
 [
-{ "Name" : "Disney.37853FC22B2CE"},
-{ "Name": "Microsoft.MicrosoftSolitaireCollection" },
-{ "Name": "Microsoft.ZuneMusic" },
-{ "Name": "Microsoft.ZuneVideo" },
-{ "Name": "Microsoft.XboxGamingOverlay" },
-{ "Name": "Microsoft.XboxApp" },
-{ "Name": "SpotifyAB.SpotifyMusic" },
-{ "Name": "Microsoft.ScreenSketch" },
-{ "Name": "Microsoft.MSPaint" },
-{ "Name": "Microsoft.BingWeather" },
-{ "Name": "Microsoft.BingNews" },
-{ "Name": "Microsoft.SkypeApp" },
-{ "Name": "Microsoft.People" },
-{ "Name": "Microsoft.WindowsAlarms" },
-{ "Name": "Microsoft.WindowsCamera" },
-{ "Name": "Microsoft.Windows.Photos" },
+  {
+    "Name": "Disney.37853FC22B2CE",
+    "CommonName": "Disney"
+  },
+  {
+    "Name": "Microsoft.MicrosoftSolitaireCollection",
+    "CommonName": "SolitaireCollection"
+  },
+  {
+    "Name": "Microsoft.ZuneMusic",
+    "CommonName": "GrooveMusic"
+  },
+  {
+    "Name": "Microsoft.ZuneVideo",
+    "CommonName": "ZuneVideo"
+  },
+  {
+    "Name": "Microsoft.XboxGamingOverlay",
+    "CommonName": "XboxGamebar"
+  },
+  {
+    "Name": "Microsoft.XboxApp",
+    "CommonName": "XboxApp"
+  },
+  {
+    "Name": "SpotifyAB.SpotifyMusic",
+    "CommonName": "Spotify"
+  },
+  {
+    "Name": "Microsoft.ScreenSketch",
+    "CommonName": "ScreenSketch"
+  },
+  {
+    "Name": "Microsoft.MSPaint",
+    "CommonName": "Paint3D"
+  },
+  {
+    "Name": "Microsoft.BingWeather",
+    "CommonName": "BingWeather"
+  },
+  {
+    "Name": "Microsoft.BingNews",
+    "CommonName": "BingNews"
+  },
+  {
+    "Name": "Microsoft.SkypeApp",
+    "CommonName": "Skype"
+  },
+  {
+    "Name": "Microsoft.People",
+    "CommonName": "People"
+  },
+  {
+    "Name": "Microsoft.WindowsAlarms",
+    "CommonName": "Alarms"
+  },
+  {
+    "Name": "Microsoft.WindowsCamera",
+    "CommonName": "Camera"
+  },
+  {
+    "Name": "Microsoft.Windows.Photos",
+    "CommonName": "Photos"
+  }
 ]
