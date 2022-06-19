@@ -60,3 +60,27 @@ C:\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.CopyComplete
 \\Mac\Home\Library\CloudStorage\OneDrive-Personal\2. BIS.SaskPolytech\5. SEM 4\COMP-253-Systems Project\2.GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.CopyComplete
 \\Mac\Home\Library\CloudStorage\OneDrive-Personal\2. BIS.SaskPolytech\5. SEM 4\COMP-253-Systems Project\2.GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.exe
 \\Mac\Home\Library\CloudStorage\OneDrive-Personal\2. BIS.SaskPolytech\5. SEM 4\COMP-253-Systems Project\2.GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.pdb
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\JunkDestroyer.exe.config
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\JunkDestroyer.exe
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\JunkDestroyer.pdb
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\System.Management.Automation.dll
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\Microsoft.Management.Infrastructure.dll
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\bin\Debug\System.Management.Automation.xml
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.AssemblyReference.cache
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.SuggestedBindingRedirects.cache
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\MainWindow.g.cs
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\UpdateWindow.g.cs
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\App.g.cs
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer_MarkupCompile.cache
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer_MarkupCompile.lref
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\MainWindow.baml
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\UpdateWindow.baml
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.g.resources
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.Properties.Resources.resources
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.GenerateResource.cache
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.CoreCompileInputs.cache
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.csproj.CopyComplete
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.exe
+C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\obj\Debug\JunkDestroyer.pdb
