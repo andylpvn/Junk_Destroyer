@@ -1,4 +1,4 @@
-﻿JunkDestroyer
+﻿Junk Destroyer
 
 
 winexe
@@ -12,13 +12,9 @@ DEBUG;TRACE
 C:\Users\iimon\OneDrive\Documents\GitHub\Junk_Destroyer\JunkDestroyer\JunkDestroyer\App.xaml
 21154441976
 
-<<<<<<< Updated upstream
-7-1505844438
-=======
 8707034240
->>>>>>> Stashed changes
 125-1920223414
 MainWindow.xaml;UpdateWindow.xaml;
 
-True
+False
 

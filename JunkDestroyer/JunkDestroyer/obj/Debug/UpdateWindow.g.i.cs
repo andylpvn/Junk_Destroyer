@@ -108,7 +108,7 @@ namespace JunkDestroyer {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/JunkDestroyer;component/updatewindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Junk Destroyer;component/updatewindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\UpdateWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
