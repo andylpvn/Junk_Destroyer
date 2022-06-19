@@ -1,0 +1,31 @@
+[
+  {
+    "Name": "Microsoft.MicrosoftOfficeHub",
+    "CommonName": "Office"
+  },
+  {
+    "Name": "Microsoft.SkypeApp",
+    "CommonName": "Skype"
+  },
+  {
+    "Name": "Microsoft.People",
+    "CommonName": "People"
+  },
+  {
+    "Name": "Microsoft.windowscommunicationsapps",
+    "CommonName": "Outlook"
+  },
+  {
+    "Name": "Microsoft.OneConnect",
+    "CommonName": "OneConnect"
+  },
+  {
+    "Name": "Microsoft.WindowsStore",
+    "CommonName": "windows Store"
+  },
+  {
+    "Name": "Microsoft.549981C3F5F10",
+    "CommonName": "Cortana"
+  }  
+
+]

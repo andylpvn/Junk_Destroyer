@@ -20,6 +20,7 @@ using System.Web.Script.Serialization;
 
 using JunkDestroyer.JSON;
 using System.Collections.ObjectModel;
+using System.Reflection;
 
 namespace JunkDestroyer
 {
@@ -29,16 +30,12 @@ namespace JunkDestroyer
     public partial class UpdateWindow : Window
     {
         List<appName> updateFullName = new List<appName>();
-        List<commonAppName> updateCommonName = new List<commonAppName>();
+        
 
         public UpdateWindow()
         {
             InitializeComponent();
         }
-
-        //show combobox for each value
-
-
 
         //Refresh button
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
@@ -98,9 +95,6 @@ namespace JunkDestroyer
                     lbCustomList.Items.Add(lbAllApps.SelectedValue);
                     lbAllApps.Items.Remove(lbAllApps.SelectedValue);
                 }
-
-
-
             }
         }
         //Remove button
@@ -121,18 +115,21 @@ namespace JunkDestroyer
         {
             populateApp();
 
-            //check if Temp folder already existed or not
-            if (!Directory.Exists(@"C:\Temp"))
+            //call root path where the application is located
+            string currentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+            //check if Database folder already existed or not in root
+            if (!Directory.Exists($@"{currentDirectory}\Database"))
             {
-                Directory.CreateDirectory(@"C:\Temp"); // create a new Temp folder
+                Directory.CreateDirectory($@"{currentDirectory}\Database"); // create a new Database folder in root folder
             }
 
             //get value from combobox
             String dbName = cbAppList.Text;
 
-            //create a file path for the database
-            var path = $@"C:\Temp\{dbName}.json";
-
+            //create a file path for the database  
+            var path = $@"{currentDirectory}\Database\{dbName}.json";
+         
             //assign all variables in the ListBox to the ArrayList
             foreach (var item in lbCustomList.Items)
             {
@@ -158,42 +155,13 @@ namespace JunkDestroyer
 
         private void cbAppList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            var PersonalPath = $@"C:\Temp\Personal.json";
-            var BusinessPath = $@"C:\Temp\Business.json";
-            var CustomPath = $@"C:\Temp\Custom.json";
-
+            //call root path where the application is located
+            string currentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+           
+            var CustomPath = $@"{currentDirectory}\Database\Custom.json";
             int index = cbAppList.SelectedIndex;
 
             if (index == 0)
-            {
-                //clear Listbox
-                lbCustomList.Items.Clear();
-
-                string jsonPersonal = File.ReadAllText(PersonalPath);
-                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(jsonPersonal);
-
-                foreach (var name in appList)
-                {
-                    String n = name.ToString();
-                    lbCustomList.Items.Add(n);
-                }
-
-            }
-            else if (index == 1)
-            {
-                //clear Listbox
-                lbCustomList.Items.Clear();
-
-                string jsonBusiness = File.ReadAllText(BusinessPath);
-                List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(jsonBusiness);
-                foreach (var name in appList)
-                {
-                    String n = name.ToString();
-                    lbCustomList.Items.Add(n);
-                }
-            }
-            else if (index == 2)
             {
                 //clear Listbox
                 lbCustomList.Items.Clear();
@@ -205,8 +173,9 @@ namespace JunkDestroyer
                     String n = name.ToString();
                     lbCustomList.Items.Add(n);
                 }
-            }
 
+            }
+            
         }
     }
 }

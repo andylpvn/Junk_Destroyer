@@ -9,11 +9,9 @@
     <Grid Margin="13,0,0.286,0.429"
           >
         <ListBox x:Name="lbAllApps" HorizontalAlignment="Left" Height="249" Margin="30,74,0,0" VerticalAlignment="Top" Width="300"/>
-        <ListBox x:Name="lbCustomList" HorizontalAlignment="Left" Height="249" Margin="437,73,0,0" VerticalAlignment="Top" Width="300"/>
+        <ListBox x:Name="lbCustomList" HorizontalAlignment="Left" Height="249" Margin="437,73,0,0" VerticalAlignment="Top" Width="300" SelectionMode="Multiple"/>
         <Button x:Name="btnAdd" Content="Add &gt;&gt;" HorizontalAlignment="Left" Margin="345,181,0,0" VerticalAlignment="Top" Width="75" Click="btnAdd_Click"/>
         <ComboBox x:Name="cbAppList" HorizontalAlignment="Left" Margin="439,39,0,0" VerticalAlignment="Top" Width="297" SelectedIndex="0" SelectionChanged="cbAppList_SelectionChanged">
-            <ComboBoxItem Content="Personal"/>
-            <ComboBoxItem Content="Business"/>
             <ComboBoxItem Content="Custom"/>
         </ComboBox>
         <Label Content="Customize the application list: " HorizontalAlignment="Left" Margin="435,14,0,0" VerticalAlignment="Top" Width="299"/>
@@ -23,8 +21,8 @@
         <Button x:Name="btnRemove" Content="&lt;&lt; Remove" HorizontalAlignment="Left" Margin="345,226,0,0" VerticalAlignment="Top" Width="75" Click="btnRemove_Click"/>
 
     </Grid>
-    
-    
+
+
 </Window>
     
     

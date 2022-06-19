@@ -1,0 +1,138 @@
+[
+  {
+    "Name": "Disney.37853FC22B2CE",
+    "CommonName": "Disney"
+  },
+  {
+    "Name": "Microsoft.MixedReality.Portal",
+    "CommonName": "Mixed Reality Portal"
+  },
+  {
+    "Name": "Microsoft.MicrosoftStickyNotes",
+    "CommonName": "StickyNotes"
+  },
+  {
+    "Name": "Microsoft.MicrosoftSolitaireCollection",
+    "CommonName": "Microsoft Solitaire Collection"
+  },
+  {
+    "Name": "Microsoft.MicrosoftOfficeHub",
+    "CommonName": "Office"
+  },
+  {
+    "Name": "Microsoft.Microsoft3DViewer",
+    "CommonName": "3D Viewer"
+  },
+  {
+    "Name": "Microsoft.People",
+    "CommonName": "People"
+  },
+  {
+    "Name": "Microsoft.Office.OneNote",
+    "CommonName": "Office OneNote"
+  },
+  {
+    "Name": "Microsoft.WindowsSoundRecorder",
+    "CommonName": "SoundRecorder"
+  },
+  {
+    "Name": "Microsoft.Wallet",
+    "CommonName": "Wallet"
+  },
+  {
+    "Name": "Microsoft.YourPhone",
+    "CommonName": "YourPhone"
+  },
+  {
+    "Name": "Microsoft.SkypeApp",
+    "CommonName": "Skype"
+  },
+  {
+    "Name": "Microsoft.Messaging",
+    "CommonName": "Windows Operator Messages"
+  },
+  {
+    "Name": "Microsoft.Getstarted",
+    "CommonName": "Get Started"
+  },
+  {
+    "Name": "Microsoft.GetHelp",
+    "CommonName": "Get Help"
+  },
+  {
+    "Name": "Microsoft.WindowsFeedbackHub",
+    "CommonName": "Windows Feedback Hub"
+  },
+  {
+    "Name": "Microsoft.WindowsMaps",
+    "CommonName": "Maps"
+  },
+  {
+    "Name": "Microsoft.windowscommunicationsapps",
+    "CommonName": "Outlook"
+  },
+  {
+    "Name": "Microsoft.BingWeather",
+    "CommonName": "Bing Weater"
+  },
+  {
+    "Name": "Microsoft.XboxApp",
+    "CommonName": "Xbox Gamebar"
+  },
+  {
+    "Name": "Microsoft.WindowsAlarms",
+    "CommonName": "Alarms"
+  },
+  {
+    "Name": "Microsoft.WindowsCamera",
+    "CommonName": "WindowCamera"
+  },
+  {
+    "Name": "Microsoft.Windows.Photos",
+    "CommonName": "Photos"
+  },
+  {
+    "Name": "Microsoft.WindowsStore",
+    "CommonName": "WindowsStore"
+  },
+  {
+    "Name": "Microsoft.WindowsCalculator",
+    "CommonName": "Calculator"
+  },
+  {
+    "Name": "Microsoft.BingNews",
+    "CommonName": "Bing News"
+  },
+  {
+    "Name": "Microsoft.MSPaint",
+    "CommonName": "Paint 3D"
+  },
+  {
+    "Name": "Microsoft.OneConnect",
+    "CommonName": "Disney"
+  },
+  {
+    "Name": "SpotifyAB.SpotifyMusic",
+    "CommonName": "Spotify"
+  },
+  {
+    "Name": "Microsoft.ScreenSketch",
+    "CommonName": "ScreenSketch"
+  },
+  {
+    "Name": "Microsoft.ZuneMusic",
+    "CommonName": "Groove"
+  },
+  {
+    "Name": "Microsoft.ZuneVideo",
+    "CommonName": "Zunebar"
+  },
+  {
+    "Name": "Microsoft.XboxGamingOverlay",
+    "CommonName": "Xbox Console Companion "
+  },
+  {
+    "Name": "Microsoft.549981C3F5F10",
+    "CommonName": "Cortana"
+  }               
+]

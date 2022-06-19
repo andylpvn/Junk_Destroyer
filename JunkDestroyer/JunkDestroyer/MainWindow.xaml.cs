@@ -27,13 +27,16 @@ using JunkDestroyer.JSON;
 
 using System.Linq;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace JunkDestroyer
 {
     public partial class MainWindow : Window
     {
 
-       // List<string> appNameList = new List<string>();
+        
+        //call root path where the application is located
+        string currentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
         public MainWindow()
         {
@@ -166,9 +169,9 @@ namespace JunkDestroyer
                 {
                     String s = item.ToString(); //convert each item to string
 
-                    string final = s.Split(',').Last();
+                    string packageFullName = s.Split(',').Last();
 
-                    // PowerShell.Create().AddScript($"Get-AppxPackage -user {cbUser} {s} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+                    // PowerShell.Create().AddScript($"Get-AppxPackage {packageFullName} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
 
                     String notification = $"{s} from the user: {winUser} >>> processed"; //show notification each run             
                     lbNotifications.Items.Add(notification);
@@ -185,9 +188,9 @@ namespace JunkDestroyer
                 {
                     String s = item.ToString(); //convert each item to string
 
-                    string final = s.Split(',').Last();
+                    string packageFullName = s.Split(',').Last();
                     
-                    // PowerShell.Create().AddScript($"Get-AppxPackage -allusers {final} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+                     //PowerShell.Create().AddScript($"Get-AppxPackage -AllUsers {packageFullName} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
 
                     String notification = $"{s} from all the Windows users have been processed"; //show notification each run             
                     lbNotifications.Items.Add(notification);
@@ -218,16 +221,17 @@ namespace JunkDestroyer
             lbNotifications.Items.Clear();
             //reset progress bar
             pBar.Value = pBar.Minimum;
-            
+            //reset uninstall button
+            UninstallBtn.IsEnabled = true;
 
-            if (File.Exists(@"C:\Temp\Personal.json"))
+            if (File.Exists($@"{currentDirectory}\Personal.json"))
             {
                 //clear ArrayString ItemsSource
                 lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
                 //clear Listbox
                 lbApps.Items.Clear();
 
-                var path = $@"C:\Temp\Personal.json";
+                var path = $@"{currentDirectory}\Database\Personal.json";
                 string json = File.ReadAllText(path);
                 List<commonAppName> commmonAppList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
@@ -266,15 +270,17 @@ namespace JunkDestroyer
             lbNotifications.Items.Clear();
             //reset progress bar
             pBar.Value = pBar.Minimum;
+            //reset uninstall button
+            UninstallBtn.IsEnabled = true;
 
-            if (File.Exists(@"C:\Temp\Business.json"))
+            if (File.Exists($@"{currentDirectory}\Database\Business.json"))
             {
                 //clear ArrayString ItemsSource
                 lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
                 //clear Listbox
                 lbApps.Items.Clear();
 
-                var path = $@"C:\Temp\Business.json";
+                var path = $@"{currentDirectory}\Database\Business.json";
                 string json = File.ReadAllText(path);
                 List < commonAppName > commmonAppList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
@@ -310,15 +316,17 @@ namespace JunkDestroyer
             lbNotifications.Items.Clear();
             //reset progress bar
             pBar.Value = pBar.Minimum;
+            //reset uninstall button
+            UninstallBtn.IsEnabled = true;
 
-            if (File.Exists(@"C:\Temp\Master.json"))
+            if (File.Exists($@"{currentDirectory}\Database\Master.json"))
             {
                 //clear ArrayString ItemsSource
                 lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
                 //clear Listbox
                 lbApps.Items.Clear();
 
-                var path = $@"C:\Temp\Master.json";
+                var path = $@"{currentDirectory}\Database\Master.json";
                 string json = File.ReadAllText(path);
                 List<commonAppName> commmonAppList = JsonConvert.DeserializeObject<List<commonAppName>>(json);
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
@@ -351,15 +359,17 @@ namespace JunkDestroyer
             lbNotifications.Items.Clear();
             //reset progress bar
             pBar.Value = pBar.Minimum;
+            //reset uninstall button
+            UninstallBtn.IsEnabled = true;
 
-            if (File.Exists(@"C:\Temp\Custom.json"))
+            if (File.Exists($@"{currentDirectory}\Database\Custom.json"))
             {
                 //clear ArrayString ItemsSource
                 lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
                 //clear Listbox
                 lbApps.Items.Clear();
 
-                var path = $@"C:\Temp\Custom.json";
+                var path = $@"{currentDirectory}\Database\Custom.json";
                 string json = File.ReadAllText(path);
                
                 List<appName> appList = JsonConvert.DeserializeObject<List<appName>>(json);
@@ -391,6 +401,8 @@ namespace JunkDestroyer
             populateApp();
             //sort the listbox 
             lbApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
+
+            UninstallBtn.IsEnabled = false;
         }
 
 
@@ -402,6 +414,11 @@ namespace JunkDestroyer
         {
             public static void Log(string format, params object[] args)
             {
+                if (!Directory.Exists("C:\\Temp"))
+                {
+                    Directory.CreateDirectory("C:\\Temp"); // create a new Database folder in root folder
+                }
+
                 using (var streamWriter = new StreamWriter("C:\\Temp\\Log.txt", true))
                 {
                     streamWriter.WriteLine("{0} | {1}", DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss"), string.Format(format, args));
