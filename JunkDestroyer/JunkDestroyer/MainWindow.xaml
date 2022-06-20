@@ -30,7 +30,7 @@
         <GroupBox Header="Select user:" HorizontalAlignment="Left" Height="110" Margin="6,2,0,0" VerticalAlignment="Top" Width="146" FontSize="14">
             <StackPanel Margin="1,17,2.6,20.8">
                 <RadioButton x:Name="rdCurrentUser" Content="Current User" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="12"/>
-                <RadioButton x:Name="rdAllUser" Content="All Users" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                <!--<RadioButton x:Name="rdAllUser" Content="All Users" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>-->
             </StackPanel>
         </GroupBox>
     </Grid>

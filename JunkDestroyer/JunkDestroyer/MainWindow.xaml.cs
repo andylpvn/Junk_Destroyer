@@ -114,13 +114,12 @@ namespace JunkDestroyer
         //Refresh button
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            //check the "All Applications" radio button
+            //uncheck buttons
             rdAll.IsChecked = false;
             rdPersonal.IsChecked = false;
             rdBusiness.IsChecked = false;
             rdCustom.IsChecked = false;
-
-            //uncheck the "check all" checkbox
+            UninstallBtn.IsEnabled = false;          
             cbSelectAll.IsChecked = false;
 
             //clear Notification
@@ -171,7 +170,7 @@ namespace JunkDestroyer
 
                     string packageFullName = s.Split(',').Last();
 
-                    // PowerShell.Create().AddScript($"Get-AppxPackage {packageFullName} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+                     PowerShell.Create().AddScript($"Get-AppxPackage {packageFullName} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
 
                     String notification = $"{s} from the user: {winUser} >>> processed"; //show notification each run             
                     lbNotifications.Items.Add(notification);
@@ -181,24 +180,24 @@ namespace JunkDestroyer
                 }
             }
 
-            else if (rdAllUser.IsChecked == true)
-            {
+            //else if (rdAllUser.IsChecked == true)
+            //{
                 
-                foreach (var item in lbApps.SelectedItems)
-                {
-                    String s = item.ToString(); //convert each item to string
+            //    foreach (var item in lbApps.SelectedItems)
+            //    {
+            //        String s = item.ToString(); //convert each item to string
 
-                    string packageFullName = s.Split(',').Last();
+            //        string packageFullName = s.Split(',').Last();
                     
-                     //PowerShell.Create().AddScript($"Get-AppxPackage -AllUsers {packageFullName} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
+            //         //PowerShell.Create().AddScript($"Get-AppxPackage -AllUsers {packageFullName} | Remove-AppxPackage").Invoke(); //assign the string to PS script to remove the app
 
-                    String notification = $"{s} from all the Windows users have been processed"; //show notification each run             
-                    lbNotifications.Items.Add(notification);
-                    lbNotifications.Foreground = Brushes.Red;
-                    //add log file to the log.txt
-                    Logger.Log("WinUser: {0} | Application: {1} | Process: {2}", winUser, s, "has been processed"); //add each run to log file  
-                }
-            }
+            //        String notification = $"{s} from all the Windows users have been processed"; //show notification each run             
+            //        lbNotifications.Items.Add(notification);
+            //        lbNotifications.Foreground = Brushes.Red;
+            //        //add log file to the log.txt
+            //        Logger.Log("WinUser: {0} | Application: {1} | Process: {2}", winUser, s, "has been processed"); //add each run to log file  
+            //    }
+            //}
 
     
             pBar.Value = pBar.Maximum;           
