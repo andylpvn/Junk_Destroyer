@@ -21,6 +21,7 @@ using System.Web.Script.Serialization;
 using JunkDestroyer.JSON;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using System.ComponentModel;
 
 namespace JunkDestroyer
 {
@@ -75,6 +76,8 @@ namespace JunkDestroyer
                 //add names to the ListBox                
                 lbAllApps.Items.Add(final);
             }
+            //sort the listbox 
+            lbAllApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
         }
 
         //Add button
