@@ -387,7 +387,7 @@ namespace JunkDestroyer
                     Directory.CreateDirectory("C:\\Temp"); // create a new Database folder in root folder
                 }
 
-                using (var streamWriter = new StreamWriter("C:\\Temp\\Log.txt", true))
+                using (var streamWriter = new StreamWriter("C:\\Temp\\JunkDestroyer_Log.txt", true))
                 {
                     streamWriter.WriteLine("{0} | {1}", DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss"), string.Format(format, args));
                 }
