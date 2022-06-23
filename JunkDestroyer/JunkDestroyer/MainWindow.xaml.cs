@@ -1,31 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Diagnostics;
 using System.IO;
 //for running PS scripts inside .NET
 using System.Management.Automation;
 //for JSON
 using Newtonsoft.Json;
-using System.Data;
-using System.Web.Script.Serialization;
-//for getting Windows users
-using System.DirectoryServices;
-using System.Collections;
-
 using JunkDestroyer.JSON;
-
-using System.Linq;
 using System.ComponentModel;
 using System.Reflection;
 
@@ -38,9 +22,11 @@ namespace JunkDestroyer
         //call root path where the application is located
         string currentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
+        
         public MainWindow()
         {
             InitializeComponent();
+            rdCurrentUser.IsChecked = true;
         }
         //show currently logged in windows user
         private void txtBoxLogin_TextChanged(object sender, TextChangedEventArgs e)
@@ -115,10 +101,11 @@ namespace JunkDestroyer
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             //uncheck buttons
-            rdAll.IsChecked = false;
+           
             rdPersonal.IsChecked = false;
             rdBusiness.IsChecked = false;
             rdCustom.IsChecked = false;
+            rdMaster.IsChecked = false;
             UninstallBtn.IsEnabled = false;          
             cbSelectAll.IsChecked = false;
 
@@ -346,7 +333,7 @@ namespace JunkDestroyer
             {
                 //lbNotifications.ClearValue(ItemsControl.ItemsSourceProperty);
                 MessageBox.Show("You have to create a new Master list first");
-                rdAll.IsChecked = false;
+                
             }
             //sort the listbox 
             lbApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
@@ -388,24 +375,6 @@ namespace JunkDestroyer
                 rdCustom.IsChecked = false;
             }
         }
-
-
-        private void rdAll_Checked(object sender, RoutedEventArgs e)
-        {
-            //clear notification listbox
-            lbNotifications.Items.Clear();
-            //reset progress bar
-            pBar.Value = pBar.Minimum;
-            //cal the function 
-            populateApp();
-            //sort the listbox 
-            lbApps.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
-
-            UninstallBtn.IsEnabled = false;
-        }
-
-
-
 
 
         //log file class

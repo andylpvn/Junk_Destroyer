@@ -5,18 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JunkDestroyer"
         mc:Ignorable="d"
-        Title="Junk Destroyer" Height="520.572" Width="810" Background="#FFF2F2F2">
+        Title="Junk Destroyer" Height="527" Width="817" Background="#FFF2F2F2" ResizeMode="CanMinimize" Icon="/1Click-logo.ico">
     <Grid Margin="7,28,6.571,0.143">
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="245" Margin="5,119,0,0" VerticalAlignment="Top" Width="149" Opacity="0.3"/>
         <ListBox x:Name="lbApps" HorizontalAlignment="Left" Height="213" Margin="170,-3,0,0" VerticalAlignment="Top" Width="606" SelectionMode="Multiple"/>
         <Button x:Name="RefreshBtn2" Content="Refresh" HorizontalAlignment="Left" Margin="170,393,0,0" VerticalAlignment="Top" Width="120" Height="50" FontSize="16" Click="btnRefresh_Click" Background="#FFCDCDCD" />
         <Button x:Name="UninstallBtn" Content="Uninstall selected apps" HorizontalAlignment="Left" Margin="384,395,0,0" VerticalAlignment="Top" Width="180" Height="50" FontSize="16" Click="UninstallBtn_Click" Background="#FFCDCDCD"/>
         <Button x:Name="UpdateListBtn" Content="Update list" HorizontalAlignment="Left" Margin="655,393,0,0" VerticalAlignment="Top" Width="120" Height="50" FontSize="16" Click="UpdateAppList" Background="#FFCDCDCD"/>
-        <RadioButton x:Name="rdPersonal" Content="Personal" HorizontalAlignment="Left" Margin="12,205,0,0" VerticalAlignment="Top" Height="23" Width="98" Checked="rdPersonal_Checked"/>
-        <RadioButton x:Name="rdBusiness" Content="Business" HorizontalAlignment="Left" Margin="12,246,0,0" VerticalAlignment="Top" Height="23" Width="98" Checked="rdBusiness_Checked"/>
-        <RadioButton x:Name="rdCustom" Content="Custom" HorizontalAlignment="Left" Margin="12,286,0,0" VerticalAlignment="Top" Height="23" Width="98" Checked="rdCustom_Checked"/>
+        <RadioButton x:Name="rdPersonal" Content="Personal" HorizontalAlignment="Left" Margin="12,216,0,0" VerticalAlignment="Top" Height="23" Width="98" Checked="rdPersonal_Checked" FontSize="14"/>
+        <RadioButton x:Name="rdBusiness" Content="Business" HorizontalAlignment="Left" Margin="12,265,0,0" VerticalAlignment="Top" Height="23" Width="98" Checked="rdBusiness_Checked" FontSize="14"/>
+        <RadioButton x:Name="rdCustom" Content="Custom" HorizontalAlignment="Left" Margin="12,315,0,0" VerticalAlignment="Top" Height="23" Width="98" Checked="rdCustom_Checked" FontSize="14"/>
         <CheckBox x:Name="cbSelectAll" Content="Select all" HorizontalAlignment="Left" Margin="169,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.107,0.42" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" Height="16" Width="67"/>
-        <RadioButton x:Name="rdMaster" Content="Master" HorizontalAlignment="Left" Margin="12,167,0,0" VerticalAlignment="Top" Height="22" Width="140" RenderTransformOrigin="0.5,0.5" Checked="rdMaster_Checked" />
+        <RadioButton x:Name="rdMaster" Content="Master" HorizontalAlignment="Left" Margin="12,167,0,0" VerticalAlignment="Top" Height="22" Width="140" RenderTransformOrigin="0.5,0.5" Checked="rdMaster_Checked" FontSize="14" />
         <TextBox x:Name="txtBoxLogin" HorizontalAlignment="Left" Height="17" Margin="632,-27,0,0" TextWrapping="Wrap" Text="            " VerticalAlignment="Top" Width="143" TextChanged="txtBoxLogin_TextChanged" Background="#FFF2F2F2"/>
         <Label Content="Logged in as:" HorizontalAlignment="Left" Margin="549,-30,0,0" VerticalAlignment="Top" Width="79" Height="26"/>
         <Label Content="Applications List:" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="125" Height="31" FontSize="14"/>
@@ -24,12 +24,11 @@
         <ListBox x:Name="lbNotifications" HorizontalAlignment="Left" Height="106" Margin="170,257,0,0" VerticalAlignment="Top" Width="606"/>
         <Image x:Name="pmwLogo" HorizontalAlignment="Left" Height="54" Margin="7,377,0,0" VerticalAlignment="Top" Width="147" Source="pmw_logo.png"/>
         <ProgressBar x:Name="pBar" HorizontalAlignment="Left" Height="13" Margin="170,239,0,0" VerticalAlignment="Top" Width="606"/>
-        <RadioButton x:Name="rdAll" Content="All applications" HorizontalAlignment="Left" Margin="12,324,0,0" VerticalAlignment="Top" Height="22" Width="140" RenderTransformOrigin="0.324,0.544" Checked="rdAll_Checked" />
 
 
         <GroupBox Header="Select user:" HorizontalAlignment="Left" Height="110" Margin="6,2,0,0" VerticalAlignment="Top" Width="146" FontSize="14">
             <StackPanel Margin="1,17,2.6,20.8">
-                <RadioButton x:Name="rdCurrentUser" Content="Current User" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="12"/>
+                <RadioButton x:Name="rdCurrentUser" Content="Current User" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="14"/>
                 <!--<RadioButton x:Name="rdAllUser" Content="All Users" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>-->
             </StackPanel>
         </GroupBox>
