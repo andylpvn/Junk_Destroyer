@@ -210,7 +210,7 @@ namespace JunkDestroyer
             //reset uninstall button
             UninstallBtn.IsEnabled = true;
 
-            if (File.Exists($@"{currentDirectory}\Personal.json"))
+            if (File.Exists($@"{currentDirectory}\Database\Personal.json"))
             {
                 //clear ArrayString ItemsSource
                 lbApps.ClearValue(ItemsControl.ItemsSourceProperty);
